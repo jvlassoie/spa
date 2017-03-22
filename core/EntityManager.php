@@ -19,7 +19,7 @@ class EntityManager
 
 	}
 	/**
-	* Create
+	* getProperty
 	* Fonction qui sert récupère les noms des champs de la entity
 	* @param $id = est un boolean pour savoir si on veut le champ id par default nom car il est auto-incrémenté 
 	* donc par nécessaire de faire de modification dessus.

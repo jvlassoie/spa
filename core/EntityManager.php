@@ -18,14 +18,19 @@ class EntityManager
 		$this->propertyDBObject = $this->getProperty();
 
 	}
-
-	//récupère les noms des champs de la entity
-	public function getProperty($getID = false){
+	/**
+	* Create
+	* Fonction qui sert récupère les noms des champs de la entity
+	* @param $id = est un boolean pour savoir si on veut le champ id par default nom car il est auto-incrémenté 
+	* donc par nécessaire de faire de modification dessus.
+	* @return un boolean pour savoir si l'action est bien effectuée
+	*/
+	public function getProperty($id = false){
 		$req = $this->db->prepare(" SHOW FULL COLUMNS FROM $this->entity ");
 		$req->execute();
 		$tab = [];
 		foreach ($req->fetchAll() as $key => $value) {	
-			if ($getID == true) {
+			if ($id == true) {
 				array_push($tab, $value->Field);
 			}else{
 

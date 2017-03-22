@@ -37,7 +37,7 @@ class EntityManager
 
 	/**
 	* Create
-	* Fonction qui sert a créer un enregistrement
+	* Fonction qui sert a créer un enregistrements
 	* @param $params = un tableau de paramètre
 	* @return un boolean pour savoir si l'action est bien effectuée
 	*/
@@ -57,7 +57,7 @@ class EntityManager
 	
 	/**
 	* Read
-	* Fonction qui sert a lire les enregistrement
+	* Fonction qui sert a lire les enregistrements
 	* @return un tableau des enregistrements;
 	*/
 	public function Read(){
@@ -66,7 +66,11 @@ class EntityManager
 		return $req->fetchAll();
 	}
 
-	//Update
+	/**
+	* Update
+	* Fonction qui sert a mettre à jour les enregistrements
+	* @return 
+	*/
 	public function Update($id = null, $params = []){
 		// $params = implode(',',$params);
 		// $columnsName = implode(",", $this->propertyDBObject);
@@ -78,7 +82,12 @@ class EntityManager
 		
 	} 
 
-	//Delete 
+	/**
+	* Delete
+	* Fonction qui sert a effacer les enregistrements
+	* @param $id = identifiant de l'enregistrement qui doit être effacé
+	* @return un boolean pour savoir si l'action est bien effectuée
+	*/
 	public function Delete($id = null){
 		if (!empty($id)) {
 			$req = $this->db->prepare(" DELETE FROM $this->entity WHERE id = ? ");

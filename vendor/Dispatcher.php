@@ -23,7 +23,9 @@ class Dispatcher{
 			header($_SERVER["SERVER_PROTOCOL"]." 404 No Found", true, 404);
 			require("../app/view/error/error404.php");
 		}
-		
+		// echo "<pre>";
+		// 	print_r($_SERVER);
+		// echo "</pre>";
 	}
 
 	public function getRequest(){

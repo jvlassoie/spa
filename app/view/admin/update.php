@@ -4,9 +4,10 @@
 	<title>create</title>
 </head>
 <body>
+
 	<form action="" method="POST">
-		<input type="text" name="name"/>
-			<button>Créer</button>
+		<input type="" name="name" value="<?= $name ?>" />
+			<button>Modifier</button>
 	</form>
 
 </body>

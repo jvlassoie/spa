@@ -77,13 +77,26 @@ class EntityManager
 	* @return 
 	*/
 	public function Update($id = null, $params = []){
-		// $params = implode(',',$params);
-		// $columnsName = implode(",", $this->propertyDBObject);
-		// // $req = $this->db->prepare(" UPDATE $this->entity SET   WHERE id = :id ");
-		// // $req->execute([':id', $id]);
-		// var_dump($columnsName);
-		// var_dump($params);
-		return true;
+		if (!empty($id)) {
+			$paramsIndice = array_keys($params);
+			$paramsIndiceStr = null;
+			$paramsIndiceExe = [];
+			foreach ($paramsIndice as $key => $value) {
+				$end = ($key == count($paramsIndice)-1)? null:', ';
+				$paramsIndiceStr .= $value.' = :'.$value.$end;
+			}
+			foreach ($params as $key => $value) {
+				$paramsIndiceExe[':'.$key] = $value;
+			}
+				$paramsIndiceExe[':id'] = $id;
+		
+			$req = $this->db->prepare(" UPDATE $this->entity SET $paramsIndiceStr  WHERE id = :id ");
+			$req->execute($paramsIndiceExe);
+	
+			return true;
+		}else{
+			return false;
+		}
 		
 	} 
 

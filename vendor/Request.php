@@ -10,7 +10,7 @@ class Request
 	private $controller;
 	private $action;
 	private $params;
-	
+
 	function __construct()
 	{
 		$this->setUrl($_SERVER['REQUEST_URI']);
@@ -67,6 +67,8 @@ class Request
 
 		return $this;
 	}
+
+
 
 
 

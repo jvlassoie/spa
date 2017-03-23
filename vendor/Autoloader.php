@@ -11,7 +11,7 @@ class Autoloader
 	
 	public static function autoload($class_name){
 		$rootController = '../src/controller/';
-		$rootCore = '../core/';
+		$rootCore = '../vendor/';
 		if (file_exists($rootCore.$class_name.'.php')) {
 			require_once($rootCore.$class_name.'.php');
 		}

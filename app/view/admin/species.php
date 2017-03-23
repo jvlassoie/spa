@@ -8,16 +8,14 @@
 	
 	<?php
 	echo "<pre>";
-	// var_dump(get_object_vars($a));
+			echo "<a href='/test/create/'>create</a>"; 
 
-	foreach ($a as $key => $value) {
-	// foreach ($a as $key => $value) {
-	  // print_r(get_object_vars($value));
-			// echo $key; 
-			echo $value->name; 
 			echo "<br/>"; 
-		
-	// }
+	foreach ($a as $key => $value) {
+
+			echo $value->name; 
+			echo "<a href='/test/view/delete/$value->id'>effacer</a>"; 
+			echo "<br/>"; 
 	}
 	echo "</pre>";
 	?>

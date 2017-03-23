@@ -16,7 +16,7 @@ class Dispatcher{
 		$classController = ucfirst($this->getRequest()->getController()).'Controller';
 
 		if (empty($this->getRequest()->getController())) {
-			require("../app/view/home.php");
+			require("../app/view//public/home.php");
 		}elseif(class_exists($classController) && method_exists($classController, $this->getRequest()->getAction())){
 			call_user_func_array([new $classController(), $this->getRequest()->getAction()], $this->request->getParams());
 		}else{
@@ -35,7 +35,6 @@ class Dispatcher{
 		$this->request = new Request();
 		return $this;
 	}
-
 
 
 }

@@ -11,13 +11,13 @@ class RoleController extends Controller
 	function __construct(){
 
 		parent::__construct();
-		$this->entityRole = new EntityManager('Role');
+		$this->entityRole = new EntityManager('Roles');
 	}
 
 	
 	public function view(){
 		parent::view();
-		return $this->render("/admin/role.php", ['a' => $this->entityRole->Read()]);
+		return $this->render("/admin/role/role.php", ['a' => $this->entityRole->Read()]);
 
 	}
 
@@ -35,7 +35,7 @@ class RoleController extends Controller
 			$this->entityRole->Create($params);
 			header('Location: http://'.$this->request->getNameServer().'/role/view/');
 		}
-		return $this->render("/admin/createRole.php");
+		return $this->render("/admin/role/createRole.php");
 
 	}
 	public function update($id){
@@ -44,7 +44,7 @@ class RoleController extends Controller
 			$this->entityRole->Update($id,$params);
 			header('Location: http://'.$this->request->getNameServer().'/role/view/');
 		}
-		return $this->render("/admin/updateRole.php", ['donnees' => $this->entityRole->FindById($id)]);
+		return $this->render("/admin/role/updateRole.php", ['donnees' => $this->entityRole->FindById($id)]);
 
 	}
 }

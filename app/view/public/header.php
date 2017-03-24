@@ -35,19 +35,19 @@
 
   <div class="container">
 
-    <ul class="breadcrumb">
-      <li><a href="/">Home</a></li>
 
-      <?php
-      if ($GLOBALS['requestGlobal']!= null) {
-       $controller = $GLOBALS['requestGlobal']->getController();
-       $action = $GLOBALS['requestGlobal']->getAction();
-       echo '<li><a href="/'.$controller.'/view" title="'.$controller.'">';
-       echo $controller;         
-       echo '</a></li>';  
-       echo '<li class="active">';
-       echo $action;         
-       echo '</a></li>';  
-     }
-     ?>
-   </ul>
+    <?php
+    if ($GLOBALS['requestGlobal']!= null) {
+      echo "<ul class='breadcrumb'>";
+      echo  "<li><a href='/''>Home</a></li>";
+      $controller = $GLOBALS['requestGlobal']->getController();
+      $action = $GLOBALS['requestGlobal']->getAction();
+      echo '<li><a href="/'.$controller.'/view" title="'.$controller.'">';
+      echo $controller;         
+      echo '</a></li>';  
+      echo '<li class="active">';
+      echo $action;         
+      echo '</a></li>';  
+      echo "</ul>";
+  }
+  ?>

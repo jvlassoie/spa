@@ -25,7 +25,7 @@ class SpeciesController extends Controller
 		if (!empty($id)) {
 			$this->entitySpecies->Delete($id);
 		}
-		return $this->view();
+		return true;
 	}
 	
 
@@ -35,16 +35,16 @@ class SpeciesController extends Controller
 			$this->entitySpecies->Create($params);
 			header('Location: http://'.$this->request->getNameServer().'/species/view/');
 		}
-		return $this->render("/admin/create.php");
+		return $this->render("/admin/createSpecies.php");
 
 	}
-	public function update($id,$name){
+	public function update($id){
 		$params = $_POST;
 		if (!empty($params)) {
 			$this->entitySpecies->Update($id,$params);
 			header('Location: http://'.$this->request->getNameServer().'/species/view/');
 		}
-		return $this->render("/admin/update.php", ['name' => $name]);
+		return $this->render("/admin/updateSpecies.php", ['donnees' => $this->entitySpecies->FindById($id)]);
 
 	}
 }

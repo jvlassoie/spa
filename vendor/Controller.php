@@ -18,7 +18,19 @@ class Controller
 	public function render($template, $tab = [] ) {
 		ob_start();
 		extract($tab);
+		require "../app/view/public/header.php";
 		require "../app/view/$template";
+		require "../app/view/public/footer.php";
+		echo ob_get_clean();
+		return true;
+	}
+
+	public static function renderStatic($template, $tab = [] ) {
+		ob_start();
+		extract($tab);
+		require "../app/view/public/header.php";
+		require "../app/view/$template";
+		require "../app/view/public/footer.php";
 		echo ob_get_clean();
 		return true;
 	}

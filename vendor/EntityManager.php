@@ -72,6 +72,17 @@ class EntityManager
 	}
 
 	/**
+	* FindById
+	* Fonction qui sert a lire les enregistrements selon id
+	* @return un tableau des enregistrements;
+	*/
+	public function FindById($id){
+		$req = $this->db->prepare(" SELECT * FROM $this->entity where id = :id");
+		$req->execute([':id'=> $id]);
+		return $req->fetchAll();
+	}
+
+	/**
 	* Update
 	* Fonction qui sert a mettre à jour les enregistrements
 	* @return 

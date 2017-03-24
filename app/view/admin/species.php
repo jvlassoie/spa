@@ -1,29 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>test</title>
-</head>
-<body>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<a href='/species/create/' class='btn btn-success btn-lg pull-right'>create</a> 
+		<br/>
 
-	
-	<?php
-	echo "<pre>";
-			echo "<a href='/species/create/'>create</a>"; 
+		<?php
+		foreach ($a as $key => $value) {
 
-			echo "<br/>"; 
-	foreach ($a as $key => $value) {
+			echo "<tr>";
+			echo "<td>$value->name</td>";
+			echo "<td><a  href='/species/update/$value->id' class='btn btn-primary'>Edit</a> ";
+			echo "<a href='/species/view/delete/$value->id' class='btn btn-danger' onclick='return confirmDelete()'>Delete</a><td>";
+			echo "</tr>";
+		}
+		?>
 
-			echo $value->name; 
-			echo "  ";
-			echo "<a href='/species/view/delete/$value->id'>effacer</a>"; 
-			echo "  ";
-			echo "<a href='/species/update/$value->id/$value->name'>modifier</a>"; 
-			echo "<br/>"; 
-	}
-	echo "</pre>";
-	?>
+	</tbody>
+</table>
 
 
 
-</body>
-</html>

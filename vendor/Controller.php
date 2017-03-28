@@ -35,6 +35,17 @@ class Controller
 		return true;
 	}
 	
+	public static function redirectStatic($url, $statusCode = 303)
+	{
+		header('Location: ' . $url, true, $statusCode);
+		exit();
+	}
+
+	public function redirect($url, $statusCode = 303)
+	{
+		header('Location: ' . $url, true, $statusCode);
+		exit();
+	}
 
 	public function view(){
 

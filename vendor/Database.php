@@ -22,17 +22,17 @@ class Database
 
 	public function getDB() {
 		if (self::$_db === null) {
-			try{
+			// try{
 
 				$pdo = new PDO('mysql:host='.self::$_host.';dbname='.self::$_name.'', self::$_user, self::$_pass);
 				$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 				self::$_db = $pdo;
 				return self::$_db;
-			}catch(Exception $exception){
-				throw new Exception("Problem with Database :(, your problem is : $exception");
+			// }catch(PDOException $e){
 				
-			}
+				// throw new CustomException("Problem with Database :(, your problem is : $exception");
+			// }
 		}
 	}
 

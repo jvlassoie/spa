@@ -11,15 +11,18 @@
 
 		<?php
 		foreach ($a as $key => $value) {
-
-			echo "<tr>";
-			echo "<td>$value->name</td>";
-			echo "<td><a  href='/animal/update/$value->id' class='btn btn-primary'>Edit</a> ";
-			echo "<a href='/animal/view/delete/$value->id' class='btn btn-danger' onclick='return confirmDelete()'>Delete</a><td>";
-			echo "</tr>";
-		}
 		?>
+			<tr>
+				<td><?= $value->name ?></td>
+				<td>
+					<a href="/animal/update/<?= $value->id ?>" class='btn btn-primary'>Edit</a> 
+					<a href="/animal/view/delete/<?= $value->id ?>" class='btn btn-danger' onclick='return confirmDelete()'>Delete</a>
+				</td>
+			</tr>
+		<?php
+			}
 
+		?>
 	</tbody>
 </table>
 

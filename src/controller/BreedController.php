@@ -17,6 +17,7 @@ class BreedController extends Controller
 	
 	public function view(){
 		parent::view();
+
 		return $this->render("/admin/breed/breed.php", ['a' => $this->entityBreed->Read()]);
 
 	}
@@ -33,7 +34,7 @@ class BreedController extends Controller
 		$params = $_POST;
 		if (!empty($params)) {
 			$this->entityBreed->Create($params);
-			header('Location: http://'.$this->request->getNameServer().'/breed/view/');
+			redirect('Location: http://'.$this->request->getNameServer().'/breed/view/');
 		}
 		return $this->render("/admin/breed/createBreed.php");
 
@@ -41,9 +42,11 @@ class BreedController extends Controller
 	public function update($id){
 		$params = $_POST;
 		if (!empty($params)) {
+			
 			$this->entityBreed->Update($id,$params);
-			header('Location: http://'.$this->request->getNameServer().'/breed/view/');
-		}
+			redirect('Location: http://'.$this->request->getNameServer().'/breed/view/');
+
+		}	
 		return $this->render("/admin/breed/updateBreed.php", ['donnees' => $this->entityBreed->FindById($id)]);
 
 	}

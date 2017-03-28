@@ -33,7 +33,7 @@ class AnimalController extends Controller
 		$params = $_POST;
 		if (!empty($params)) {
 			$this->entityAnimal->Create($params);
-			header('Location: http://'.$this->request->getNameServer().'/animal/view/');
+			redirect('Location: http://'.$this->request->getNameServer().'/animal/view/');
 		}
 		return $this->render("/admin/animal/createAnimal.php");
 
@@ -42,7 +42,7 @@ class AnimalController extends Controller
 		$params = $_POST;
 		if (!empty($params)) {
 			$this->entityAnimal->Update($id,$params);
-			header('Location: http://'.$this->request->getNameServer().'/animal/view/');
+			redirect('Location: http://'.$this->request->getNameServer().'/animal/view/');
 		}
 		return $this->render("/admin/animal/updateAnimal.php", ['donnees' => $this->entityAnimal->FindById($id)]);
 

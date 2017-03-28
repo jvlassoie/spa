@@ -8,15 +8,16 @@ class EntityManager
 	private $entity;
 	private $dataBaseObject;
 	private $db;
-	private $propertyDBObject = [];
+	private $propertiesDBObject = [];
+	private $fk = [];
 	
 	function __construct($entity)
 	{
 		$this->entity = $entity;
 		$this->dataBaseObject = new Database('127.0.0.1','spa','root','');
 		$this->db = $this->dataBaseObject->getDB();
-		$this->propertyDBObject = $this->getProperty();
-
+		$this->propertiesDBObject = $this->getProperty();
+		$this->fk = $this->getFK();
 	}
 	/**
 	* getProperty
@@ -39,6 +40,22 @@ class EntityManager
 		}
 		return $tab;
 	}
+	/**
+	* getFK
+	* Fonction qui sert à savoir si on a une table liée
+	* @return un boolean pour savoir si l'action est bien effectuée
+	*/
+	public function getFK(){
+		$req = $this->db->prepare(" SHOW FULL COLUMNS FROM $this->entity ");
+		$req->execute();
+		$tab = [];
+		foreach ($req->fetchAll() as $key => $value) {	
+
+			($value->Key == "MUL")? $tab[$value->Field]=$value->Key:null;
+			
+		}
+		return $tab;
+	}
 
 	/**
 	* Create
@@ -48,7 +65,7 @@ class EntityManager
 	*/
 	public function Create($params = []){
 		if (!empty($params)) {	
-			$columnsName = implode(",", $this->propertyDBObject);
+			$columnsName = implode(",", $this->propertiesDBObject);
 			$params = implode(',',$params);
 			$req = $this->db->prepare(" INSERT INTO $this->entity ($columnsName) VALUES (?)");
 			$req->execute([$params]);
@@ -66,8 +83,19 @@ class EntityManager
 	* @return un tableau des enregistrements;
 	*/
 	public function Read(){
-		$req = $this->db->prepare(" SELECT * FROM $this->entity");
+		if (!empty($this->fk)) {
+			$columnFK = key($this->fk);
+			$entityFK = substr($columnFK.'s', 2);
+			var_dump("SELECT * FROM $this->entity INNER JOIN $entityFK ON $this->entity.$columnFK = $entityFK.id");
+			$req = $this->db->prepare("SELECT $this->entity.name, $entityFK.name FROM $this->entity INNER JOIN $entityFK ON $this->entity.$columnFK = $entityFK.id");
+		}else{	
+			$req = $this->db->prepare("SELECT * FROM $this->entity");
+		}
 		$req->execute();
+		echo "<pre>";
+		print_r($req->fetchAll());
+		
+		echo "</pre>";
 		return $req->fetchAll();
 	}
 
@@ -99,11 +127,11 @@ class EntityManager
 			foreach ($params as $key => $value) {
 				$paramsIndiceExe[':'.$key] = $value;
 			}
-				$paramsIndiceExe[':id'] = $id;
-		
+			$paramsIndiceExe[':id'] = $id;
+
 			$req = $this->db->prepare(" UPDATE $this->entity SET $paramsIndiceStr  WHERE id = :id ");
 			$req->execute($paramsIndiceExe);
-	
+			
 			return true;
 		}else{
 			return false;

@@ -33,7 +33,7 @@ class RoleController extends Controller
 		$params = $_POST;
 		if (!empty($params)) {
 			$this->entityRole->Create($params);
-			header('Location: http://'.$this->request->getNameServer().'/role/view/');
+			redirect('Location: http://'.$this->request->getNameServer().'/role/view/');
 		}
 		return $this->render("/admin/role/createRole.php");
 
@@ -42,7 +42,7 @@ class RoleController extends Controller
 		$params = $_POST;
 		if (!empty($params)) {
 			$this->entityRole->Update($id,$params);
-			header('Location: http://'.$this->request->getNameServer().'/role/view/');
+			redirect('Location: http://'.$this->request->getNameServer().'/role/view/');
 		}
 		return $this->render("/admin/role/updateRole.php", ['donnees' => $this->entityRole->FindById($id)]);
 

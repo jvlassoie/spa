@@ -20,7 +20,7 @@
         <a class="navbar-brand" href="/">Spa</a>
       </div>
       <div id="navbar" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav pull-right">
 
 
           <li><a href="#">se déconnecter</a></li>

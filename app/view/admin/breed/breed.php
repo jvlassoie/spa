@@ -2,6 +2,7 @@
 	<thead>
 		<tr>
 			<th>Name</th>
+			<th>Specie</th>
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -11,15 +12,19 @@
 
 		<?php
 		foreach ($a as $key => $value) {
-
-			echo "<tr>";
-			echo "<td>$value->name</td>";
-			echo "<td><a  href='/breed/update/$value->id' class='btn btn-primary'>Edit</a> ";
-			echo "<a href='/breed/view/delete/$value->id' class='btn btn-danger' onclick='return confirmDelete()'>Delete</a><td>";
-			echo "</tr>";
-		}
 		?>
+			<tr>
+				<td><?= $value->name ?></td>
+				<td><?= $value->idSpecie ?></td>
+				<td>
+					<a href="/breed/update/<?= $value->id ?>" class='btn btn-primary'>Edit</a> 
+					<a href="/breed/view/delete/<?= $value->id ?>" class='btn btn-danger' onclick='return confirmDelete()'>Delete</a>
+				</td>
+			</tr>
+		<?php
+			}
 
+		?>
 	</tbody>
 </table>
 

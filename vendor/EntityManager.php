@@ -46,8 +46,9 @@ class EntityManager
 	* Fonction qui sert à savoir si on a une table liée
 	* @return un boolean pour savoir si l'action est bien effectuée
 	*/
-	public function getFK(){
-		$req = $this->db->prepare(" SHOW FULL COLUMNS FROM $this->entity ");
+	public function getFK($entity = ""){
+		$entity = (empty($entity))? $this->entity : $entity;
+		$req = $this->db->prepare(" SHOW FULL COLUMNS FROM $entity ");
 		$req->execute();
 		$tab = [];
 		foreach ($req->fetchAll() as $key => $value) {	
@@ -83,28 +84,84 @@ class EntityManager
 	* Fonction qui sert a lire les enregistrements
 	* @return un tableau des enregistrements;
 	*/
+	// public function Read(){
+	// 	if (!empty($this->fk)) {
+	// 		$columnFK = key($this->fk);
+	// 		$entityFK = substr($columnFK.'s', 2);
+	// 		$entityOBJFK = $this->getProperty(true,$entityFK);
+	// 		$entityOBJOIN = array_merge($entityOBJFK,$this->propertiesDBObject);
+	// 		$entityIndiceStr = null;
+	// 		$entityIndiceStrp = null;
+	// 		$addJoinStr = null;
+	// 		foreach ($this->getProperty(true) as $key => $value) {
+	// 			$entityIndiceStr .= $this->entity.'.'.$value.' AS '.$this->entity.ucfirst($value).', ';
+	// 		}
+	// 		foreach ($entityOBJFK as $key => $value) {
+	// 			$end = ($key == count($entityOBJFK)-1)? null:', ';
+	// 			$entityIndiceStr .= $entityFK.'.'.$value.' AS '.$entityFK.ucfirst($value).$end;
+	// 		}
+	// 		if (!empty($this->getFK($entityFK))) {
+	// 			$fkid = key($this->getFK($entityFK));
+	// 			$entityFKFK = substr(key($this->getFK($entityFK)).'s', 2);
+	// 			foreach ($this->getProperty(true,$entityFKFK) as $key => $value) {
+	// 				$entityIndiceStrp .= $entityFKFK.'.'.$value.' AS '.$entityFKFK.ucfirst($value).', ';
+	// 			}
+	// 			// SELECT * FROM Animals INNER JOIN Breeds ON Animals.idBreed = Breeds.id INNER JOIN Species ON Breeds.idSpecie = Species.id
+
+	// 			$req = $this->db->prepare("SELECT $entityIndiceStrp $entityIndiceStr FROM $this->entity INNER JOIN $entityFK ON $this->entity.$columnFK = $entityFK.id INNER JOIN $entityFKFK ON $entityFK.$fkid = $entityFKFK.id");			
+	// 			var_dump("SELECT $entityIndiceStrp $entityIndiceStr FROM $this->entity INNER JOIN $entityFK ON $this->entity.$columnFK = $entityFK.id INNER JOIN $entityFKFK ON $entityFK.$fkid = $entityFKFK.id");
+	// 		}else{
+
+	// 			$req = $this->db->prepare("SELECT $entityIndiceStr FROM $this->entity INNER JOIN $entityFK ON $this->entity.$columnFK = $entityFK.id");			
+	// 		}
+	// 		// var_dump("SELECT $entityIndiceStr FROM $this->entity INNER JOIN $entityFK ON $this->entity.$columnFK = $entityFK.id");
+	// 	}else{	
+	// 		$req = $this->db->prepare("SELECT * FROM $this->entity");
+	// 	}
+	// 	$req->execute();
+	// 	return $req->fetchAll();
+	// }
+
+	/**
+	* Read
+	* Fonction qui sert a lire les enregistrements
+	* @return un tableau des enregistrements;
+	*/
 	public function Read(){
 		if (!empty($this->fk)) {
-			$columnFK = key($this->fk);
-			$entityFK = substr($columnFK.'s', 2);
-			$entityOBJFK = $this->getProperty(true,$entityFK);
-			$entityOBJOIN = array_merge($entityOBJFK,$this->propertiesDBObject);
 			$entityIndiceStr = null;
-			var_dump($this->fk);
-			foreach ($this->getProperty(true) as $key => $value) {
-				$entityIndiceStr .= $this->entity.'.'.$value.' AS '.$this->entity.ucfirst($value).', ';
+			$addJoinStr = null;
+			$end = true;
+			while ($end == true) {
+				$entityNow = $this->entity;
+				do{
+					$bent = $entityNow;
+					foreach ($this->getProperty(true, $entityNow) as $key => $value) {
+						$entityIndiceStr .= $entityNow.'.'.$value.' AS '.$entityNow.ucfirst($value).', ';
+					}
+
+					$columnFK = key($this->getFK($entityNow));
+					$entityNow = substr($columnFK.'s', 2);
+					$aent = $entityNow;
+					if (!empty($columnFK)) {
+						$addJoinStr .= " INNER JOIN $aent ON $bent.$columnFK = $aent.id ";	
+					}
+					
+				}while(!empty($columnFK));
+					
+				$entityIndiceStr = rtrim($entityIndiceStr,', ');
+				$req = $this->db->prepare("SELECT $entityIndiceStr FROM $this->entity $addJoinStr");
+				$end = false;
 			}
-			foreach ($entityOBJFK as $key => $value) {
-				$end = ($key == count($entityOBJFK)-1)? null:', ';
-				$entityIndiceStr .= $entityFK.'.'.$value.' AS '.$entityFK.ucfirst($value).$end;
-			}
-			// var_dump("SELECT $entityIndiceStr FROM $this->entity INNER JOIN $entityFK ON $this->entity.$columnFK = $entityFK.id");
-			$req = $this->db->prepare("SELECT $entityIndiceStr FROM $this->entity INNER JOIN $entityFK ON $this->entity.$columnFK = $entityFK.id");			
+			
+			echo "</pre>";
+
+			
 		}else{	
 			$req = $this->db->prepare("SELECT * FROM $this->entity");
 		}
-			$req->execute();
-			return $req->fetchAll();
+		$req->execute();
+		return $req->fetchAll();
 	}
 
 	/**

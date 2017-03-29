@@ -6,6 +6,7 @@
 			<th>DateArrived</th>
 			<th>Description</th>
 			<th>Breed Name</th>
+			<th>Specie Name</th>
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -21,10 +22,11 @@
 		?>
 			<tr>
 				<td><?= $value->AnimalsName ?></td>
-				<td><?= $value->AnimalsStatus ?></td>
+				<td><?= ($value->AnimalsStatus == 1)?"Disponible":"Indisponible" ; ?></td>
 				<td><?= $value->AnimalsDateArrived ?></td>
 				<td><?= $value->AnimalsDescription ?></td>
 				<td><?= $value->BreedsName ?></td>
+				<td><?= $value->SpeciesName ?></td>
 				<td>
 					<a href="/animal/update/<?= $value->id ?>" class='btn btn-primary'>Edit</a> 
 					<a href="/animal/view/delete/<?= $value->id ?>" class='btn btn-danger' onclick='return confirmDelete()'>Delete</a>

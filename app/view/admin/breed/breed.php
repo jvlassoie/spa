@@ -14,8 +14,8 @@
 		foreach ($a as $key => $value) {
 		?>
 			<tr>
-				<td><?= $value->name ?></td>
-				<td><?= $value->idSpecie ?></td>
+				<td><?= $value->BreedsName ?></td>
+				<td><?= $value->SpeciesName ?></td>
 				<td>
 					<a href="/breed/update/<?= $value->id ?>" class='btn btn-primary'>Edit</a> 
 					<a href="/breed/view/delete/<?= $value->id ?>" class='btn btn-danger' onclick='return confirmDelete()'>Delete</a>

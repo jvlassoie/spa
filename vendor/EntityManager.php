@@ -26,8 +26,9 @@ class EntityManager
 	* donc par nécessaire de faire de modification dessus.
 	* @return un boolean pour savoir si l'action est bien effectuée
 	*/
-	public function getProperty($id = false){
-		$req = $this->db->prepare(" SHOW FULL COLUMNS FROM $this->entity ");
+	public function getProperty($id = false, $entity = "" ){
+		$entity = (empty($entity))? $this->entity : $entity;
+		$req = $this->db->prepare(" SHOW FULL COLUMNS FROM $entity ");
 		$req->execute();
 		$tab = [];
 		foreach ($req->fetchAll() as $key => $value) {	
@@ -86,17 +87,24 @@ class EntityManager
 		if (!empty($this->fk)) {
 			$columnFK = key($this->fk);
 			$entityFK = substr($columnFK.'s', 2);
-			var_dump("SELECT * FROM $this->entity INNER JOIN $entityFK ON $this->entity.$columnFK = $entityFK.id");
-			$req = $this->db->prepare("SELECT $this->entity.name, $entityFK.name FROM $this->entity INNER JOIN $entityFK ON $this->entity.$columnFK = $entityFK.id");
+			$entityOBJFK = $this->getProperty(true,$entityFK);
+			$entityOBJOIN = array_merge($entityOBJFK,$this->propertiesDBObject);
+			$entityIndiceStr = null;
+			var_dump($this->fk);
+			foreach ($this->getProperty(true) as $key => $value) {
+				$entityIndiceStr .= $this->entity.'.'.$value.' AS '.$this->entity.ucfirst($value).', ';
+			}
+			foreach ($entityOBJFK as $key => $value) {
+				$end = ($key == count($entityOBJFK)-1)? null:', ';
+				$entityIndiceStr .= $entityFK.'.'.$value.' AS '.$entityFK.ucfirst($value).$end;
+			}
+			// var_dump("SELECT $entityIndiceStr FROM $this->entity INNER JOIN $entityFK ON $this->entity.$columnFK = $entityFK.id");
+			$req = $this->db->prepare("SELECT $entityIndiceStr FROM $this->entity INNER JOIN $entityFK ON $this->entity.$columnFK = $entityFK.id");			
 		}else{	
 			$req = $this->db->prepare("SELECT * FROM $this->entity");
 		}
-		$req->execute();
-		echo "<pre>";
-		print_r($req->fetchAll());
-		
-		echo "</pre>";
-		return $req->fetchAll();
+			$req->execute();
+			return $req->fetchAll();
 	}
 
 	/**

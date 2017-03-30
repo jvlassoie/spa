@@ -7,11 +7,15 @@ class BreedController extends Controller
 	
 
 	protected $entityBreed; 
+	protected $entitySpecie; 
 
 	function __construct(){
 
 		parent::__construct();
 		$this->entityBreed = new EntityManager('Breeds');
+		$this->entitySpecie = new EntityManager('Species');
+	
+		
 	}
 
 	
@@ -47,7 +51,7 @@ class BreedController extends Controller
 			redirect('Location: http://'.$this->request->getNameServer().'/breed/view/');
 
 		}	
-		return $this->render("/admin/breed/updateBreed.php", ['donnees' => $this->entityBreed->FindById($id)]);
+		return $this->render("/admin/breed/updateBreed.php", ['donnees' => $this->entityBreed->FindById($id), 'listeSpecies' => $this->entitySpecie->Read($id)]);
 
 	}
 }

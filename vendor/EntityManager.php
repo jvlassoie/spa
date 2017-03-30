@@ -124,7 +124,7 @@ class EntityManager
 
 	/**
 	* Read
-	* Fonction qui sert a lire les enregistrements
+	* Fonction qui sert a lire les enregistrements et trouve automatiquement les FKs 
 	* @return un tableau des enregistrements;
 	*/
 	public function Read(){
@@ -132,7 +132,7 @@ class EntityManager
 			$entityIndiceStr = null;
 			$addJoinStr = null;
 			$end = true;
-			while ($end == true) {
+			if($end == true) {
 				$entityNow = $this->entity;
 				do{
 					$bent = $entityNow;
@@ -148,15 +148,11 @@ class EntityManager
 					}
 					
 				}while(!empty($columnFK));
-					
+
 				$entityIndiceStr = rtrim($entityIndiceStr,', ');
 				$req = $this->db->prepare("SELECT $entityIndiceStr FROM $this->entity $addJoinStr");
 				$end = false;
 			}
-			
-			echo "</pre>";
-
-			
 		}else{	
 			$req = $this->db->prepare("SELECT * FROM $this->entity");
 		}
@@ -170,7 +166,35 @@ class EntityManager
 	* @return un tableau des enregistrements;
 	*/
 	public function FindById($id){
-		$req = $this->db->prepare(" SELECT * FROM $this->entity where id = :id");
+		if (!empty($this->fk)) {
+			$entityIndiceStr = null;
+			$addJoinStr = null;
+			$end = true;
+			if($end == true) {
+				$entityNow = $this->entity;
+				do{
+					$bent = $entityNow;
+					foreach ($this->getProperty(true, $entityNow) as $key => $value) {
+						$entityIndiceStr .= $entityNow.'.'.$value.' AS '.$entityNow.ucfirst($value).', ';
+					}
+
+					$columnFK = key($this->getFK($entityNow));
+					$entityNow = substr($columnFK.'s', 2);
+					$aent = $entityNow;
+					if (!empty($columnFK)) {
+						$addJoinStr .= " INNER JOIN $aent ON $bent.$columnFK = $aent.id ";	
+					}
+					
+				}while(!empty($columnFK));
+
+				$entityIndiceStr = rtrim($entityIndiceStr,', ');
+				$req = $this->db->prepare("SELECT $entityIndiceStr FROM $this->entity $addJoinStr WHERE $this->entity.id = :id");
+				$end = false;
+			}
+			// SELECT * FROM Breeds INNER JOIN Species ON Breeds.idSpecie = Species.id where Breeds.id = 2
+		}else{	
+			$req = $this->db->prepare(" SELECT * FROM $this->entity where id = :id");
+		}
 		$req->execute([':id'=> $id]);
 		return $req->fetchAll();
 	}

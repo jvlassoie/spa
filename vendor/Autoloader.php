@@ -11,12 +11,16 @@ class Autoloader
 	
 	public static function autoload($class_name){
 		$rootController = '../src/controller/';
+		$rootRepo = '../src/repository/';
 		$rootCore = '../vendor/';
 		if (file_exists($rootCore.$class_name.'.php')) {
 			require_once($rootCore.$class_name.'.php');
 		}
 		if (file_exists($rootController.$class_name.'.php')) {
 			require_once($rootController.$class_name.'.php');
+		}
+		if (file_exists($rootRepo.$class_name.'.php')) {
+			require_once($rootRepo.$class_name.'.php');
 		}
 	}
 

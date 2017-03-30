@@ -17,8 +17,8 @@
 				<td><?= $value->BreedsName ?></td>
 				<td><?= $value->SpeciesName ?></td>
 				<td>
-					<a href="/breed/update/<?= $value->id ?>" class='btn btn-primary'>Edit</a> 
-					<a href="/breed/view/delete/<?= $value->id ?>" class='btn btn-danger' onclick='return confirmDelete()'>Delete</a>
+					<a href="/breed/update/<?= $value->BreedsId ?>" class='btn btn-primary'>Edit</a> 
+					<a href="/breed/view/delete/<?= $value->BreedsId ?>" class='btn btn-danger' onclick='return confirmDelete()'>Delete</a>
 				</td>
 			</tr>
 		<?php

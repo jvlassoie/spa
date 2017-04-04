@@ -26,10 +26,14 @@ class Dispatcher{
 				Controller::renderStatic("error/error404.php");
 
 			}
-		}catch(Exception $e){
-			$link = $this->request->getNameServer();
-			$a = new CustomException($e->getMessage(), 1, $e);
-			Controller::renderStatic("error/error.php",['error' =>  $a->messageError(), 'link' => $link]);
+		} catch(CustomException $cE) {
+			error_log($cE->getMessage());
+			$this->errorLogWrite($cE->getMessage());
+			Controller::renderStatic("error/error.php",['error' =>  $cE->message(), 'link' =>  $this->request->getNameServer()]);
+		} catch(Exception $e) {
+			error_log($e->getMessage());
+			$this->errorLogWrite($e->getMessage());
+			Controller::renderStatic("error/error.php",['error' =>  'une erreur s\'est produite ...', 'link' =>  $this->request->getNameServer()]);
 		}
 				
 	}
@@ -44,5 +48,14 @@ class Dispatcher{
 		return $this;
 	}
 
-
+	public function errorLogWrite($message){
+		$today = date("Y-m-d H:i:s");     
+		$file = fopen('../var/logs/error.log', 'a+');
+		fputs($file, '['.$today.']');
+		fputs($file, "\t");
+		fputs($file, $message);
+		fputs($file, "\n");
+		fclose($file);
+		return true;
+	}
 }

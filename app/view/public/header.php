@@ -23,11 +23,11 @@
         <ul class="nav navbar-nav pull-right">
 
 
-          <li><a href="#">se déconnecter</a></li>
+          <li><a href="/user/logout">se déconnecter</a></li>
 
 
-          <li><a href="#">Inscription</a></li>
-          <li><a href="#">Connection</a></li>
+          <li><a href="/user/register">Inscription</a></li>
+          <li><a href="/user/login">Connection</a></li>
         </ul>
       </div>
     </div>

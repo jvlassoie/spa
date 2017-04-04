@@ -20,19 +20,13 @@ class Database
 
 	public function getDB() {
 		if (self::$_db === null) {
-			// try{
 			$pdo = new PDO('mysql:host='.self::$_host.';dbname='.self::$_name.'', self::$_user, self::$_pass);
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 			$pdo->exec('SET NAMES utf8');
-				// $pdo->setAttribute(PDO::ATTR_FETCH_TABLE_NAMES, true);
 			self::$_db = $pdo;
-			// }catch(PDOException $e){
-
-				// throw new CustomException("Problem with Database :(, your problem is : $exception");
 		}
 		return self::$_db;
-		// }
 	}
 
 }

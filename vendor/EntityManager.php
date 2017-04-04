@@ -60,6 +60,42 @@ class EntityManager
 	}
 
 	/**
+	* paramsIndiceStr
+	* Fonction qui construit une chaine de caractère
+	* @param $params = un tableau de paramètre
+	* @return $paramIndiceStr  = la chaine
+	*/
+	public function paramsIndiceStr($params = []){
+		$paramsIndice = array_keys($params);
+		$paramsIndiceStr = null;
+		foreach ($paramsIndice as $key => $value) {
+			$end = ($key == count($paramsIndice)-1)? null:', ';
+			$paramsIndiceStr .= ':'.$value.$end;
+		}
+		return $paramsIndiceStr;
+	}
+	
+	/**
+	* paramsIndiceExe
+	* Fonction qui construit un tableau associatif
+	* @param $params = un tableau de paramètre
+	* @return $paramIndiceExe  = le tableau
+	*/
+	public function paramsIndiceExe($params = [], $id = null){
+		$paramsIndiceExe = [];
+		// $paramIndiceExe[':id'] = (!empty($id)) ? $id :null;
+		foreach ($params as $key => $value) {
+			$paramsIndiceExe[':'.$key] = $value;
+		}
+		$paramIndiceExe[':id'] = $id;
+		// if ($id != null) {
+		
+		// }
+
+		return $paramsIndiceExe;
+	}
+
+	/**
 	* Create
 	* Fonction qui sert a créer un enregistrements
 	* @param $params = un tableau de paramètre
@@ -67,10 +103,14 @@ class EntityManager
 	*/
 	public function Create($params = []){
 		if (!empty($params)) {	
+			$paramsIndiceStr = $this->paramsIndiceStr($params);
+			$paramsIndiceExe = $this->paramsIndiceExe($params);
+			
 			$columnsName = implode(",", $this->propertiesDBObject);
 			$params = implode(',',$params);
-			$req = $this->db->prepare(" INSERT INTO $this->entity ($columnsName) VALUES (?)");
-			$req->execute([$params]);
+
+			$req = $this->db->prepare("INSERT INTO $this->entity ($columnsName) VALUES ($paramsIndiceStr)");
+			$req->execute($paramsIndiceExe);
 			return true;
 		}else{
 			
@@ -78,49 +118,6 @@ class EntityManager
 		}
 		
 	}
-	
-	/**
-	* Read
-	* Fonction qui sert a lire les enregistrements
-	* @return un tableau des enregistrements;
-	*/
-	// public function Read(){
-	// 	if (!empty($this->fk)) {
-	// 		$columnFK = key($this->fk);
-	// 		$entityFK = substr($columnFK.'s', 2);
-	// 		$entityOBJFK = $this->getProperty(true,$entityFK);
-	// 		$entityOBJOIN = array_merge($entityOBJFK,$this->propertiesDBObject);
-	// 		$entityIndiceStr = null;
-	// 		$entityIndiceStrp = null;
-	// 		$addJoinStr = null;
-	// 		foreach ($this->getProperty(true) as $key => $value) {
-	// 			$entityIndiceStr .= $this->entity.'.'.$value.' AS '.$this->entity.ucfirst($value).', ';
-	// 		}
-	// 		foreach ($entityOBJFK as $key => $value) {
-	// 			$end = ($key == count($entityOBJFK)-1)? null:', ';
-	// 			$entityIndiceStr .= $entityFK.'.'.$value.' AS '.$entityFK.ucfirst($value).$end;
-	// 		}
-	// 		if (!empty($this->getFK($entityFK))) {
-	// 			$fkid = key($this->getFK($entityFK));
-	// 			$entityFKFK = substr(key($this->getFK($entityFK)).'s', 2);
-	// 			foreach ($this->getProperty(true,$entityFKFK) as $key => $value) {
-	// 				$entityIndiceStrp .= $entityFKFK.'.'.$value.' AS '.$entityFKFK.ucfirst($value).', ';
-	// 			}
-	// 			// SELECT * FROM Animals INNER JOIN Breeds ON Animals.idBreed = Breeds.id INNER JOIN Species ON Breeds.idSpecie = Species.id
-
-	// 			$req = $this->db->prepare("SELECT $entityIndiceStrp $entityIndiceStr FROM $this->entity INNER JOIN $entityFK ON $this->entity.$columnFK = $entityFK.id INNER JOIN $entityFKFK ON $entityFK.$fkid = $entityFKFK.id");			
-	// 			var_dump("SELECT $entityIndiceStrp $entityIndiceStr FROM $this->entity INNER JOIN $entityFK ON $this->entity.$columnFK = $entityFK.id INNER JOIN $entityFKFK ON $entityFK.$fkid = $entityFKFK.id");
-	// 		}else{
-
-	// 			$req = $this->db->prepare("SELECT $entityIndiceStr FROM $this->entity INNER JOIN $entityFK ON $this->entity.$columnFK = $entityFK.id");			
-	// 		}
-	// 		// var_dump("SELECT $entityIndiceStr FROM $this->entity INNER JOIN $entityFK ON $this->entity.$columnFK = $entityFK.id");
-	// 	}else{	
-	// 		$req = $this->db->prepare("SELECT * FROM $this->entity");
-	// 	}
-	// 	$req->execute();
-	// 	return $req->fetchAll();
-	// }
 
 	/**
 	* Read
@@ -206,19 +203,21 @@ class EntityManager
 	*/
 	public function Update($id = null, $params = []){
 		if (!empty($id)) {
-			$paramsIndice = array_keys($params);
-			$paramsIndiceStr = null;
-			$paramsIndiceExe = [];
-			foreach ($paramsIndice as $key => $value) {
-				$end = ($key == count($paramsIndice)-1)? null:', ';
-				$paramsIndiceStr .= $value.' = :'.$value.$end;
-			}
-			foreach ($params as $key => $value) {
-				$paramsIndiceExe[':'.$key] = $value;
-			}
-			$paramsIndiceExe[':id'] = $id;
+			// $paramsIndice = array_keys($params);
+			// $paramsIndiceStr = null;
+			// $paramsIndiceExe = [];
+			$paramsIndiceStr = $this->paramsIndiceStr($params);
+			$paramsIndiceExe = $this->paramsIndiceExe($params,$id);
+			// foreach ($paramsIndice as $key => $value) {
+			// 	$end = ($key == count($paramsIndice)-1)? null:', ';
+			// 	$paramsIndiceStr .= $value.' = :'.$value.$end;
+			// }
+			// foreach ($params as $key => $value) {
+			// 	$paramsIndiceExe[':'.$key] = $value;
+			// }
+			// $paramsIndiceExe[':id'] = $id;
 
-			$req = $this->db->prepare(" UPDATE $this->entity SET $paramsIndiceStr  WHERE id = :id ");
+			$req = $this->db->prepare("UPDATE $this->entity SET $paramsIndiceStr  WHERE id = :id ");
 			$req->execute($paramsIndiceExe);
 			
 			return true;

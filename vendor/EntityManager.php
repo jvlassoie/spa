@@ -73,6 +73,22 @@ class EntityManager
 			$paramsIndiceStr .= ':'.$value.$end;
 		}
 		return $paramsIndiceStr;
+	}	
+
+	/**
+	* paramsIndiceStrEquals
+	* Fonction qui construit une chaine de caractère
+	* @param $params = un tableau de paramètre
+	* @return $paramIndiceStr  = la chaine
+	*/
+	public function paramsIndiceStrEquals($params = []){
+		$paramsIndice = array_keys($params);
+		$paramsIndiceStr = null;
+		foreach ($paramsIndice as $key => $value) {
+			$end = ($key == count($paramsIndice)-1)? null:', ';
+			$paramsIndiceStr .= $value.' = :'.$value.$end;
+		}
+		return $paramsIndiceStr;
 	}
 	
 	/**
@@ -87,8 +103,8 @@ class EntityManager
 		foreach ($params as $key => $value) {
 			$paramsIndiceExe[':'.$key] = $value;
 		}
-		$paramIndiceExe[':id'] = $id;
 		// if ($id != null) {
+		$paramsIndiceExe[':id'] = $id;
 		
 		// }
 
@@ -188,7 +204,6 @@ class EntityManager
 				$req = $this->db->prepare("SELECT $entityIndiceStr FROM $this->entity $addJoinStr WHERE $this->entity.id = :id");
 				$end = false;
 			}
-			// SELECT * FROM Breeds INNER JOIN Species ON Breeds.idSpecie = Species.id where Breeds.id = 2
 		}else{	
 			$req = $this->db->prepare(" SELECT * FROM $this->entity where id = :id");
 		}
@@ -203,23 +218,15 @@ class EntityManager
 	*/
 	public function Update($id = null, $params = []){
 		if (!empty($id)) {
-			// $paramsIndice = array_keys($params);
-			// $paramsIndiceStr = null;
-			// $paramsIndiceExe = [];
-			$paramsIndiceStr = $this->paramsIndiceStr($params);
-			$paramsIndiceExe = $this->paramsIndiceExe($params,$id);
-			// foreach ($paramsIndice as $key => $value) {
-			// 	$end = ($key == count($paramsIndice)-1)? null:', ';
-			// 	$paramsIndiceStr .= $value.' = :'.$value.$end;
-			// }
-			// foreach ($params as $key => $value) {
-			// 	$paramsIndiceExe[':'.$key] = $value;
-			// }
-			// $paramsIndiceExe[':id'] = $id;
-
-			$req = $this->db->prepare("UPDATE $this->entity SET $paramsIndiceStr  WHERE id = :id ");
-			$req->execute($paramsIndiceExe);
 			
+			$paramsIndiceStr = $this->paramsIndiceStrEquals($params);
+			$paramsIndiceExe = $this->paramsIndiceExe($params,$id);
+			
+
+			$req = $this->db->prepare("UPDATE $this->entity SET $paramsIndiceStr  WHERE id = :id");
+			$req->execute($paramsIndiceExe);
+
+
 			return true;
 		}else{
 			return false;

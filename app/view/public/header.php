@@ -10,6 +10,8 @@
   <title></title>
 
   <link href="/css/app.css" rel="stylesheet">
+  <link rel="shortcut icon" href="favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
 </head>
 
 <body>
@@ -34,20 +36,7 @@
   </nav>
 
   <div class="container">
-
-
+    
     <?php
-    if ($GLOBALS['requestGlobal']!= null) {
-      echo "<ul class='breadcrumb'>";
-      echo  "<li><a href='/''>Home</a></li>";
-      $controller = $GLOBALS['requestGlobal']->getController();
-      $action = $GLOBALS['requestGlobal']->getAction();
-      echo '<li><a href="/'.$controller.'/view" title="'.$controller.'">';
-      echo $controller;         
-      echo '</a></li>';  
-      echo '<li class="active">';
-      echo $action;         
-      echo '</a></li>';  
-      echo "</ul>";
-  }
-  ?>
+    include_once("bread.php");
+    ?>

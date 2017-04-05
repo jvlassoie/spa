@@ -33,7 +33,7 @@ class SpecieController extends Controller
 		$params = $_POST;
 		if (!empty($params)) {
 			$this->entitySpecie->Create($params);
-			redirect('Location: http://'.$this->request->getNameServer().'/specie/view/');
+			$this->redirect('http://'.$this->request->getNameServer().'/specie/view/');
 		}
 		return $this->render("/admin/specie/createSpecie.php");
 
@@ -42,7 +42,7 @@ class SpecieController extends Controller
 		$params = $_POST;
 		if (!empty($params)) {
 			$this->entitySpecie->Update($id,$params);
-			redirect('Location: http://'.$this->request->getNameServer().'/specie/view/');
+			$this->redirect('http://'.$this->request->getNameServer().'/specie/view/');
 		}
 		return $this->render("/admin/specie/updateSpecie.php", ['donnees' => $this->entitySpecie->FindById($id)]);
 

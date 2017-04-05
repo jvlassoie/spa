@@ -5,11 +5,11 @@
 class EntityManager
 {
 
-	private $entity;
-	private $dataBaseObject;
-	private $db;
-	private $propertiesDBObject = [];
-	private $fk = [];
+	protected $entity;
+	protected $dataBaseObject;
+	protected $db;
+	protected $propertiesDBObject = [];
+	protected $fk = [];
 	
 	function __construct($entity)
 	{
@@ -99,14 +99,13 @@ class EntityManager
 	*/
 	public function paramsIndiceExe($params = [], $id = null){
 		$paramsIndiceExe = [];
-		// $paramIndiceExe[':id'] = (!empty($id)) ? $id :null;
 		foreach ($params as $key => $value) {
 			$paramsIndiceExe[':'.$key] = $value;
 		}
-		// if ($id != null) {
+		if ($id != null) {
 		$paramsIndiceExe[':id'] = $id;
 		
-		// }
+		}
 
 		return $paramsIndiceExe;
 	}
@@ -226,9 +225,9 @@ class EntityManager
 			$req = $this->db->prepare("UPDATE $this->entity SET $paramsIndiceStr  WHERE id = :id");
 			$req->execute($paramsIndiceExe);
 
-
 			return true;
 		}else{
+			
 			return false;
 		}
 		
@@ -242,7 +241,7 @@ class EntityManager
 	*/
 	public function Delete($id = null){
 		if (!empty($id)) {
-			$req = $this->db->prepare(" DELETE FROM $this->entity WHERE id = ? ");
+			$req = $this->db->prepare("DELETE FROM $this->entity WHERE id = ? ");
 			$req->execute([$id]);
 			return true;
 		}else{

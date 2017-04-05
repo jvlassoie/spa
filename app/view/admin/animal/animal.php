@@ -5,6 +5,7 @@
 			<th>Status</th>
 			<th>DateArrived</th>
 			<th>Description</th>
+			<th>Age</th>
 			<th>Breed Name</th>
 			<th>Specie Name</th>
 			<th>Action</th>
@@ -15,9 +16,7 @@
 		<br/>
 
 		<?php
-		// echo "<pre>";
-		// print_r($a);
-		// echo "</pre>";
+
 		foreach ($a as $key => $value) {
 		?>
 			<tr>
@@ -25,11 +24,12 @@
 				<td><?= ($value->AnimalsStatus == 1)?"Disponible":"Indisponible" ; ?></td>
 				<td><?= $value->AnimalsDateArrived ?></td>
 				<td><?= $value->AnimalsDescription ?></td>
-				<td><?= $value->BreedsName ?></td>
+				<td><?= ($value->AnimalsAge == null or 0)?"Age inconnu":$value->AnimalsAge; ?></td>
 				<td><?= $value->SpeciesName ?></td>
+				<td><?= $value->BreedsName ?></td>
 				<td>
-					<a href="/animal/update/<?= $value->id ?>" class='btn btn-primary'>Edit</a> 
-					<a href="/animal/view/delete/<?= $value->id ?>" class='btn btn-danger' onclick='return confirmDelete()'>Delete</a>
+					<a href="/animal/update/<?= $value->AnimalsId ?>" class='btn btn-primary'>Edit</a> 
+					<a href="/animal/view/delete/<?= $value->AnimalsId ?>" class='btn btn-danger' onclick='return confirmDelete()'>Delete</a>
 				</td>
 			</tr>
 		<?php

@@ -24,6 +24,13 @@ class Controller
 		echo ob_get_clean();
 		return true;
 	}
+	public function responseData($tab = []) {
+		ob_start();
+		extract($tab);
+		require "../app/view/public/response.php";
+		echo ob_get_clean();
+		return true;
+	}
 
 	public static function renderStatic($template, $tab = [] ) {
 		ob_start();
@@ -44,7 +51,7 @@ class Controller
 	public function redirect($url, $statusCode = 303)
 	{
 		header('Location: ' . $url, true, $statusCode);
-		exit();
+		
 	}
 
 	public function view(){

@@ -10,9 +10,4 @@ class CustomException extends Exception
 	}
 
 
-	public function messageError(){
-		return $this->getMessage();	
-	}
-
-
 }

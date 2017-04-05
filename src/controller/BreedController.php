@@ -12,7 +12,7 @@ class BreedController extends Controller
 	function __construct(){
 
 		parent::__construct();
-		$this->entityBreed = new EntityManager('Breeds');
+		$this->entityBreed = new BreedManager();
 		$this->entitySpecie = new EntityManager('Species');
 
 		
@@ -38,7 +38,7 @@ class BreedController extends Controller
 		$params = $_POST;
 		if (!empty($params)) {
 			$this->entityBreed->Create($params);
-			header('Location: http://'.$this->request->getNameServer().'/breed/view/');
+			$this->redirect('http://'.$this->request->getNameServer().'/breed/view/');
 		}
 		return $this->render("/admin/breed/createBreed.php", ['listeSpecies' => $this->entitySpecie->Read($id)]);
 
@@ -47,9 +47,14 @@ class BreedController extends Controller
 		$params = $_POST;
 		if (!empty($params)) {
 			$this->entityBreed->Update($id,$params);
-			header('Location: http://'.$this->request->getNameServer().'/breed/view/');
+			$this->redirect('http://'.$this->request->getNameServer().'/breed/view/');
 		}	
 		return $this->render("/admin/breed/updateBreed.php", ['donnees' => $this->entityBreed->FindById($id), 'listeSpecies' => $this->entitySpecie->Read($id)]);
 
+	}
+
+	public function response($id){
+		$res = json_encode($this->entityBreed->findByIdSpecie($id));
+		return $this->responseData(['response' => $res ]);
 	}
 }

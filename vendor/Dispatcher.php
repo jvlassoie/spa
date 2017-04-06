@@ -17,9 +17,11 @@ class Dispatcher{
 			$classController = ucfirst($this->getRequest()->getController()).'Controller';
 
 			if (empty($this->getRequest()->getController())) {
-				Controller::renderStatic("public/home.php");
+				$home = new HomeController();
+				$home->view();
 			}elseif(class_exists($classController) && method_exists($classController, $this->getRequest()->getAction())){
-				$GLOBALS['requestGlobal'] = $this->getRequest();
+				$glob = new SuperGlobal();
+				$glob->addGlob('request', $this->getRequest());
 				call_user_func_array([new $classController(), $this->getRequest()->getAction()], $this->request->getParams());
 			}else{
 				Controller::redirectStatic($_SERVER["SERVER_PROTOCOL"]." 404 No Found", true, 404);

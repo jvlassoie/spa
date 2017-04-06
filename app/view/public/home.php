@@ -13,6 +13,7 @@
 			<li><a href="/role/view/">Roles</a></li>
 			<li><a href="/animal/view/">Animals</a></li>
 			<li><a href="/breed/view/">Breeds</a></li>
+			<li><a href="/user/view/">Users</a></li>
 		</ul>
 	</div>
 </div>

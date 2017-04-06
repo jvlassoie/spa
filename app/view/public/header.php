@@ -7,7 +7,9 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title></title>
+  <?php
+  include_once("title.php");
+  ?>
 
   <link href="/css/app.css" rel="stylesheet">
   <link rel="shortcut icon" href="favicon.ico">
@@ -36,7 +38,6 @@
   </nav>
 
   <div class="container">
-    
     <?php
     include_once("bread.php");
     ?>

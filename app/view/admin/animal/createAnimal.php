@@ -47,9 +47,9 @@
 			<div class="col-lg-10">
 				<select name="idSpecie" class="form-control" id="esp">
 					<option value="" >--Choisissez une Espèce</option>
-					<?php foreach ($listeSpecies as $key => $value) { ?>
+					<?php foreach ($listeSpecies as $key => $value): ?>
 					<option value="<?= $value->id ?>"><?= $value->name ?></option>
-					<?php } ?>
+					<?php endforeach ?>
 				</select>
 			</div>
 		</div>

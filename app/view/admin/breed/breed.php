@@ -1,8 +1,8 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th>Name</th>
-			<th>Specie</th>
+			<th>Nom de la race</th>
+			<th>Nom de l'espèce</th>
 			<th>Action</th>
 		</tr>
 	</thead>

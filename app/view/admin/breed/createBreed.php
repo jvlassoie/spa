@@ -12,9 +12,9 @@
 			<label for="select" class="col-lg-2 control-label">Nom de l'espèce</label>
 			<div class="col-lg-10">
 				<select name="idSpecie" class="form-control" id="select">
-					<?php foreach ($listeSpecies as $key => $value) { ?>
+					<?php foreach ($listeSpecies as $key => $value): ?>
 					<option value="<?= $value->id ?>"><?= $value->name ?></option>
-					<?php } ?>
+					<?php endforeach ?>
 				</select>
 				<br>
 			</div>

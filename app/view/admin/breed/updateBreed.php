@@ -13,11 +13,11 @@
 			<div class="col-lg-10">
 				<select name="idSpecie" class="form-control" id="select">
 					<option value="<?= $donnees[0]->SpeciesId ?>"><?= $donnees[0]->SpeciesName ?></option>
-					<?php foreach ($listeSpecies as $key => $value) { ?>
+					<?php foreach ($listeSpecies as $key => $value): ?>
 					<?php if ($value->id != $donnees[0]->SpeciesId): ?>
 						<option value="<?= $value->id ?>"><?= $value->name ?></option>
 					<?php endif; ?>
-					<?php } ?>
+					<?php endforeach ?>
 				</select>
 				<br>
 			</div>

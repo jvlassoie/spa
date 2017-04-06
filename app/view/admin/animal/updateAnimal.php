@@ -54,11 +54,11 @@
 				<div class="col-lg-10">
 					<select name="idSpecie" class="form-control" id="esp">
 						<option value=<?= $value->SpeciesId ?> ><?= $value->SpeciesName ?></option>
-						<?php foreach ($listeSpecies as $keySpe => $valueSpe) { ?>
+						<?php foreach ($listeSpecies as $keySpe => $valueSpe): ?>
 						<?php if($valueSpe->id != $value->SpeciesId): ?>
 							<option value="<?= $valueSpe->id ?>"><?= $valueSpe->name ?></option>
 						<?php  endif ?>
-						<?php } ?>
+						<?php endforeach ?>
 					</select>
 				</div>
 			</div>
@@ -68,11 +68,11 @@
 				<div class="col-lg-10">
 					<select name="idBreed" class="form-control" id="selectRace">
 						<option value=<?= $value->BreedsId ?> ><?= $value->BreedsName ?></option>
-						<?php foreach ($listeBreeds as $keyBre => $valueBre) { ?>
+						<?php foreach ($listeBreeds as $keyBre => $valueBre): ?>
 						<?php if($valueBre->id != $value->BreedsId): ?>
 							<option value="<?= $valueBre->id ?>"><?= $valueBre->name ?></option>
 						<?php  endif ?>
-						<?php } ?>
+						<?php endforeach ?>
 					</select>
 					<br>
 				</div>

@@ -60,12 +60,21 @@ class Controller
 		$params = $this->request->getParams();
 		unset($params[0]);
 		if(method_exists($this, $action)){
-			call_user_func_array([$this,$action], [implode(",", $params)]);		
+			// call_user_func_array([$this,$action], [implode(",", $params)]);	
+			call_user_func_array([$this,$action], $params);	
+
 		}
 
 
 	}
 
+	public function secureForm($params = []){
+		$paramsSecure = [];
+		foreach ($params as $key => $value) {
+			$paramsSecure[$key] = htmlentities($value);
+		}
+		return $paramsSecure;
+	}
 
 
 

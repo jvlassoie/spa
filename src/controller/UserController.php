@@ -33,6 +33,7 @@ class UserController extends Controller
 	public function create(){
 		$params = $_POST;
 		if (!empty($params)) {
+			$params = $this->secureForm($params);
 			$this->entityUser->Create($params);
 			$this->redirect('http://'.$this->request->getNameServer().'/user/view/');
 		}
@@ -42,6 +43,7 @@ class UserController extends Controller
 	public function update($id){
 		$params = $_POST;
 		if (!empty($params)) {
+			$params = $this->secureForm($params);
 			$this->entityUser->Update($id,$params);
 			$this->redirect('http://'.$this->request->getNameServer().'/user/view/');
 		}

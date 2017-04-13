@@ -32,6 +32,7 @@ class SpecieController extends Controller
 	public function create(){
 		$params = $_POST;
 		if (!empty($params)) {
+			$params = $this->secureForm($params);
 			$this->entitySpecie->Create($params);
 			$this->redirect('http://'.$this->request->getNameServer().'/specie/view/');
 		}
@@ -41,6 +42,7 @@ class SpecieController extends Controller
 	public function update($id){
 		$params = $_POST;
 		if (!empty($params)) {
+			$params = $this->secureForm($params);
 			$this->entitySpecie->Update($id,$params);
 			$this->redirect('http://'.$this->request->getNameServer().'/specie/view/');
 		}

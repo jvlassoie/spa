@@ -32,6 +32,7 @@ class RoleController extends Controller
 	public function create(){
 		$params = $_POST;
 		if (!empty($params)) {
+			$params = $this->secureForm($params);
 			$this->entityRole->Create($params);
 			$this->redirect('http://'.$this->request->getNameServer().'/role/view/');
 		}
@@ -41,6 +42,7 @@ class RoleController extends Controller
 	public function update($id){
 		$params = $_POST;
 		if (!empty($params)) {
+			$params = $this->secureForm($params);
 			$this->entityRole->Update($id,$params);
 			$this->redirect('http://'.$this->request->getNameServer().'/role/view/');
 		}

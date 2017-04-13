@@ -103,8 +103,8 @@ class EntityManager
 			$paramsIndiceExe[':'.$key] = $value;
 		}
 		if ($id != null) {
-		$paramsIndiceExe[':id'] = $id;
-		
+			$paramsIndiceExe[':id'] = $id;
+			
 		}
 
 		return $paramsIndiceExe;
@@ -249,5 +249,10 @@ class EntityManager
 		}
 
 	} 
+
+
+	public function lastId(){
+		return $this->db->lastInsertId();
+	}
 
 }

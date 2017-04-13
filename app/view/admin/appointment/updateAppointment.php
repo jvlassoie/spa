@@ -49,20 +49,73 @@
 		</div>
 
 		<div class="form-group">
-			<label for="idUser" class="col-lg-2 control-label">Choisir votre/vos animeaux à voir</label>
-			<div class="col-lg-10">
-				<select name="idUser" class="form-control" id="idUser">
-					<option value="<?= $donnees[0]->UsersId ?>"><?= $donnees[0]->UsersName ?></option>
-					<?php foreach ($user as $key => $value): ?>
-						<?php if($value->UsersId != $donnees[0]->UsersId): ?>
-							<option value="<?= $value->UsersId ?>" ><?= $value->UsersName ?></option>
-						<?php  endif ?>
+			<label for="idRace" class="col-lg-2 control-label">Choisir votre/vos animeaux à voir</label>
+			<div class="col-lg-5">
+				<select name="idSpecie" class="form-control" id="esp">
+					<option value="" >--Choisissez une Espèce</option>
+					<?php foreach ($race as $key => $value): ?>
+						<option value=<?= $value->id ?> ><?= $value->name ?></option>
 					<?php endforeach ?>
 				</select>
-				<br>
 			</div>
+			<div class="col-lg-5">
+				<select name="idBreed" class="form-control" id="selectRace">
+					<option value="" >--Choisissez une Race</option>
+
+				</select>
+			</div>
+			<br>
 		</div>
 
+		<legend>Liste des Animaux</legend>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Description</th>
+					<th>Age</th>
+					<th>Action</th>
+
+				</tr>
+			</thead>
+			<tbody id="selectAnimal">
+
+
+			</tbody>
+		</table>
+
+		<legend>Liste des Animaux Selectionnés</legend>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Description</th>
+					<th>Age</th>
+					<th>Action</th>
+
+				</tr>
+			</thead>
+			<tbody id="selectedAnimals">
+			<? foreach($donnees as $key => $value): ?>
+				<tr>
+				<input type="hidden" value= <?= $value->AnimalsId  ?> >
+					<td>  <?= $value->AnimalsName ?> </td>
+					<td> <?= $value->AnimalsDescription ?> </td>
+					<td> <?= $value->AnimalsAge ?> </td>
+					<td><button class="btn btn-danger" id="RemoveAnimal" type="button">Remove</button></td>
+				</tr>
+			<? endforeach; ?>
+
+			</tbody>
+		</table>
+
+		<div id="addListAnimals">
+			<? foreach($donnees as $key => $value): ?>
+			<input type='hidden' name='listAnimals[]' value= <?= $value->AnimalsId  ?> />
+			<? endforeach; ?>
+
+		</div>
+		
 
 		<div class="form-group">
 			<div class="col-lg-10 col-lg-offset-2">

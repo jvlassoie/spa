@@ -71,7 +71,7 @@ class Controller
 	public function secureForm($params = []){
 		$paramsSecure = [];
 		foreach ($params as $key => $value) {
-			$paramsSecure[$key] = htmlentities($value);
+			$paramsSecure[$key] = htmlentities(trim($value));
 		}
 		return $paramsSecure;
 	}

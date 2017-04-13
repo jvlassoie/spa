@@ -75,7 +75,7 @@ class AppointmentController extends Controller
 			$this->entityAppointment->Update($id,$params);
 			$this->redirect('http://'.$this->request->getNameServer().'/appointment/view/');
 		}
-		return $this->render("/admin/appointment/updateAppointment.php", ['donnees' => $this->entityAppointment->FindById($id), 'user' => $this->entityUser->Read()]);
+		return $this->render("/admin/appointment/updateAppointment.php", ['donnees' => $this->entityAppAni->FindByIdApp($id), 'user' => $this->entityUser->Read(), 'race' => $this->entitySpecie->Read()]);
 
 	}
 

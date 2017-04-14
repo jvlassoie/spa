@@ -67,10 +67,15 @@ class AppointmentManager extends EntityManager
 		return $req->fetchAll();
 	}
 
-	public function DeleteApp($idApp,$idAni){
-		if (!empty($idApp)&& !empty($idAni)) {
+	public function DeleteApp($idApp,$idAni = null){
+		if (!empty($idApp) && !empty($idAni)){
 			$req = $this->db->prepare("DELETE FROM $this->entity WHERE idAppointments = ? AND idAnimals = ?");
 			$req->execute([$idApp,$idAni]);
+			return true;
+
+		}elseif(!empty($idApp) && empty($idAni)){
+			$req = $this->db->prepare("DELETE FROM $this->entity WHERE idAppointments = ?");
+			$req->execute([$idApp]);
 			return true;
 		}else{
 			return false;

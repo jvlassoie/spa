@@ -69,10 +69,16 @@ class AppointmentController extends Controller
 	}
 	public function update($id){
 		$params = $_POST;
-
 		if (!empty($params)) {
+			$listAnimals = $params['listAnimals'];
+			$params['dateOfApp'] = (!empty($params['dateOfApp']))? date("Y-m-d", strtotime($params['dateOfApp'])):null;
+			unset($params['idSpecie'],$params['idBreed'],$params['listAnimals']);
 			$params = $this->secureForm($params);
 			$this->entityAppointment->Update($id,$params);
+			$this->entityAppAni->DeleteApp($id);
+			foreach ($listAnimals as $key => $value) {
+				$this->entityAppAni->CreateAppAnimals($id,$value);
+			}
 			$this->redirect('http://'.$this->request->getNameServer().'/appointment/view/');
 		}
 		return $this->render("/admin/appointment/updateAppointment.php", ['donnees' => $this->entityAppAni->FindByIdApp($id), 'user' => $this->entityUser->Read(), 'race' => $this->entitySpecie->Read()]);

@@ -85,7 +85,7 @@ class AppointmentManager extends EntityManager
 
 
 	public function countById($id){
-		$req = $this->db->prepare("SELECT COUNT(*) FROM $this->entity WHERE idAppointments = ?");
+		$req = $this->db->prepare("SELECT COUNT(*) as nbCount FROM $this->entity WHERE idAppointments = ?");
 		$req->execute([$id]);
 		return $req->fetch();
 

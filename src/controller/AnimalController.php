@@ -19,9 +19,10 @@ class AnimalController extends Controller
 	}
 
 	
-	public function view(){
+	public function view($page = 1){
 		parent::view();
-		return $this->render("/admin/animal/animal.php", ['a' => $this->entityAnimal->Read()]);
+		$pagination = new Pagination($this->entityAnimal->counter()->Counter,4,$page);
+		return $this->render("/admin/animal/animal.php", ['a' => $this->entityAnimal->Read($pagination)]);
 
 	}
 

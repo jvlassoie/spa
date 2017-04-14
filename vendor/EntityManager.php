@@ -139,37 +139,73 @@ class EntityManager
 	* Fonction qui sert a lire les enregistrements et trouve automatiquement les FKs 
 	* @return un tableau des enregistrements;
 	*/
-	public function Read(){
-		if (!empty($this->fk)) {
-			$entityIndiceStr = null;
-			$addJoinStr = null;
-			$end = true;
-			if($end == true) {
-				$entityNow = $this->entity;
-				do{
-					$bent = $entityNow;
-					foreach ($this->getProperty(true, $entityNow) as $key => $value) {
-						$entityIndiceStr .= $entityNow.'.'.$value.' AS '.$entityNow.ucfirst($value).', ';
-					}
+	public function Read(Pagination $pagination = null){
+		if ($pagination != null) {
 
-					$columnFK = key($this->getFK($entityNow));
-					$entityNow = substr($columnFK.'s', 2);
-					$aent = $entityNow;
-					if (!empty($columnFK)) {
-						$addJoinStr .= " INNER JOIN $aent ON $bent.$columnFK = $aent.id ";	
-					}
-					
-				}while(!empty($columnFK));
+			if (!empty($this->fk)) {
+				$entityIndiceStr = null;
+				$addJoinStr = null;
+				$end = true;
+				if($end == true) {
+					$entityNow = $this->entity;
+					do{
+						$bent = $entityNow;
+						foreach ($this->getProperty(true, $entityNow) as $key => $value) {
+							$entityIndiceStr .= $entityNow.'.'.$value.' AS '.$entityNow.ucfirst($value).', ';
+						}
 
-				$entityIndiceStr = rtrim($entityIndiceStr,', ');
-				$req = $this->db->prepare("SELECT $entityIndiceStr FROM $this->entity $addJoinStr");
-				$end = false;
+						$columnFK = key($this->getFK($entityNow));
+						$entityNow = substr($columnFK.'s', 2);
+						$aent = $entityNow;
+						if (!empty($columnFK)) {
+							$addJoinStr .= " INNER JOIN $aent ON $bent.$columnFK = $aent.id ";	
+						}
+
+					}while(!empty($columnFK));
+
+					$entityIndiceStr = rtrim($entityIndiceStr,', ');
+					$req = $this->db->prepare('SELECT '.$entityIndiceStr.' FROM '.$this->entity.' '.$addJoinStr.' '.$pagination->getLimit());
+					$end = false;
+				}
+			}else{	
+				$req = $this->db->prepare('SELECT * FROM '.$this->entity.' '.$pagination->getLimit());
 			}
-		}else{	
-			$req = $this->db->prepare("SELECT * FROM $this->entity");
+			$req->execute();
+			return $req->fetchAll();
+
+		}else{
+
+			if (!empty($this->fk)) {
+				$entityIndiceStr = null;
+				$addJoinStr = null;
+				$end = true;
+				if($end == true) {
+					$entityNow = $this->entity;
+					do{
+						$bent = $entityNow;
+						foreach ($this->getProperty(true, $entityNow) as $key => $value) {
+							$entityIndiceStr .= $entityNow.'.'.$value.' AS '.$entityNow.ucfirst($value).', ';
+						}
+
+						$columnFK = key($this->getFK($entityNow));
+						$entityNow = substr($columnFK.'s', 2);
+						$aent = $entityNow;
+						if (!empty($columnFK)) {
+							$addJoinStr .= " INNER JOIN $aent ON $bent.$columnFK = $aent.id ";	
+						}
+
+					}while(!empty($columnFK));
+
+					$entityIndiceStr = rtrim($entityIndiceStr,', ');
+					$req = $this->db->prepare("SELECT $entityIndiceStr FROM $this->entity $addJoinStr");
+					$end = false;
+				}
+			}else{	
+				$req = $this->db->prepare("SELECT * FROM $this->entity");
+			}
+			$req->execute();
+			return $req->fetchAll();
 		}
-		$req->execute();
-		return $req->fetchAll();
 	}
 
 	/**
@@ -253,6 +289,14 @@ class EntityManager
 
 	public function lastId(){
 		return $this->db->lastInsertId();
+	}
+	
+
+	public function counter(){
+		$req = $this->db->prepare("SELECT COUNT(*) as Counter FROM $this->entity");
+		$req->execute();
+		return $req->fetch();
+
 	}
 
 }

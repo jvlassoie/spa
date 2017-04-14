@@ -31,11 +31,11 @@
         <ul class="nav navbar-nav pull-right">
 
 
-          <li><a href="/user/logout">se déconnecter</a></li>
+          <li><a href="/auth/logout">se déconnecter</a></li>
 
 
-          <li><a href="/user/register">Inscription</a></li>
-          <li><a href="/user/login">Connection</a></li>
+          <li><a href="/auth/register">Inscription</a></li>
+          <li><a href="/auth/login">Connection</a></li>
         </ul>
       </div>
     </div>

@@ -35,12 +35,8 @@ class AppointmentController extends Controller
 			//compter combien id pareil 
 			//si le nombre id == 0
 			//on supprime de rdv dans Appointments
-
 			$this->entityAppAni->DeleteApp($idApp,$idAni);
-			$count = null;
-			foreach ($this->entityAppAni->countById($idApp) as $key => $value) {
-				$count = $value;
-			}
+			$count = $this->entityAppAni->countById($idApp)->nbCount;
 			if ($count == 0) {
 				$this->entityAppointment->Delete($idApp);
 			}

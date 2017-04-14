@@ -15,9 +15,10 @@ class SpecieController extends Controller
 	}
 
 	
-	public function view(){
+	public function view($page = 1){
 		parent::view();
-		return $this->render("/admin/specie/specie.php", ['a' => $this->entitySpecie->Read()]);
+		$pagination = new Pagination($this->entitySpecie->counter()->Counter,4,$page);
+		return $this->render("/admin/specie/specie.php", ['a' => $this->entitySpecie->Read($pagination)]);
 
 	}
 

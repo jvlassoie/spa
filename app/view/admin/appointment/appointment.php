@@ -37,4 +37,8 @@
 </table>
 
 
+<?php
+include('../app/view/public/pagination.php');
+?>
+
 

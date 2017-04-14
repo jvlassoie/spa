@@ -19,10 +19,11 @@ class BreedController extends Controller
 	}
 
 	
-	public function view(){
+	public function view($page = 1){
 		parent::view();
+		$pagination = new Pagination($this->entityBreed->counter()->Counter,4,$page);
 
-		return $this->render("/admin/breed/breed.php", ['a' => $this->entityBreed->Read()]);
+		return $this->render("/admin/breed/breed.php", ['a' => $this->entityBreed->Read($pagination),'pagination' => $pagination]);
 
 	}
 

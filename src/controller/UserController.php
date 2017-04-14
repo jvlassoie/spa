@@ -16,9 +16,11 @@ class UserController extends Controller
 	}
 
 	
-	public function view(){
+	public function view($page = 1){
 		parent::view();
-		return $this->render("/admin/user/user.php", ['a' => $this->entityUser->Read()]);
+		$pagination = new Pagination($this->entityUser->counter()->Counter,4,$page);
+
+		return $this->render("/admin/user/user.php", ['a' => $this->entityUser->Read($pagination),'pagination' => $pagination]);
 
 	}
 

@@ -23,9 +23,11 @@ class AppointmentController extends Controller
 	}
 
 	
-	public function view(){
+	public function view($page = 1){
 		parent::view();
-		return $this->render("/admin/appointment/appointment.php", ['a' => $this->entityAppAni->ReadApp()]);
+		$pagination = new Pagination($this->entityAppAni->counter()->Counter,4,$page);
+
+		return $this->render("/admin/appointment/appointment.php", ['a' => $this->entityAppAni->ReadApp($pagination),'pagination' => $pagination]);
 
 	}
 

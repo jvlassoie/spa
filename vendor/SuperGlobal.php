@@ -11,7 +11,7 @@ class SuperGlobal
 	function __construct(){
 		$this->glob = $GLOBALS;
 	}
- 
+
 
 	public function addGlob($name,$value){
 		$this->glob[$name] = $value;
@@ -19,8 +19,10 @@ class SuperGlobal
 	}
 
 	public function getGlob($name){
-		return $this->glob[$name];
-
+		if (!empty($this->glob[$name])) {
+			return $this->glob[$name];
+		}
+		return false;
 	}
 
 	public function getAllGlob(){

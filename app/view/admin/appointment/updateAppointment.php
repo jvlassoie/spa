@@ -37,10 +37,10 @@
 			<label for="idUser" class="col-lg-2 control-label">User</label>
 			<div class="col-lg-10">
 				<select name="idUser" class="form-control" id="idUser">
-					<option value="<?= $donnees[0]->UsersId ?>"><?= $donnees[0]->UsersName ?></option>
+					<option value="<?= $donnees[0]->UsersId ?>"><?= $donnees[0]->UsersUsername ?></option>
 					<?php foreach ($user as $key => $value): ?>
 						<?php if($value->UsersId != $donnees[0]->UsersId): ?>
-							<option value="<?= $value->UsersId ?>" ><?= $value->UsersName ?></option>
+							<option value="<?= $value->UsersId ?>" ><?= $value->UsersUsername ?></option>
 						<?php  endif ?>
 					<?php endforeach ?>
 				</select>

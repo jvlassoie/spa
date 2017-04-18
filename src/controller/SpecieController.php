@@ -16,21 +16,26 @@ class SpecieController extends Controller
 
 	
 	public function view($page = 1){
+		$this->allow(['ROLE_ADMIN']);
 		parent::view();
 		$pagination = new Pagination($this->entitySpecie->counter()->Counter,4,$page);
 		return $this->render("/admin/specie/specie.php", ['a' => $this->entitySpecie->Read($pagination),'pagination' => $pagination]);
 
 	}
 
-	protected function deleteAction($id){
+	public function delete($id){
+		$this->allow(['ROLE_ADMIN']);
 		if (!empty($id)) {
 			$this->entitySpecie->Delete($id);
+			$this->redirect('http://'.$this->request->getNameServer().'/specie/view/');
+			return true;
 		}
-		return true;
+		return false;
 	}
 	
 
 	public function create(){
+		$this->allow(['ROLE_ADMIN']);
 		$params = $_POST;
 		if (!empty($params)) {
 			$params = $this->secureForm($params);
@@ -41,6 +46,7 @@ class SpecieController extends Controller
 
 	}
 	public function update($id){
+		$this->allow(['ROLE_ADMIN']);
 		$params = $_POST;
 		if (!empty($params)) {
 			$params = $this->secureForm($params);

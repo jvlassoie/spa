@@ -9,6 +9,7 @@ class Controller
 	
 	function __construct(){
 
+		Session::start();
 		$this->request = new Request();
 		Router::parseUrl($this->request->getUrl(), $this->request);
 
@@ -45,24 +46,27 @@ class Controller
 	public static function redirectStatic($url, $statusCode = 303)
 	{
 		header('Location: ' . $url, true, $statusCode);
-		exit();
+		exit;
 	}
 
 	public function redirect($url, $statusCode = 303)
 	{
+
 		header('Location: ' . $url, true, $statusCode);
-		
+		exit;
 	}
 
 	public function view(){
-
-		$action = $this->request->getParams()[0].'Action';
-		$params = $this->request->getParams();
-		unset($params[0]);
-		if(method_exists($this, $action)){
+		if (!empty($this->request->getParams())) {
+			
+			$action = $this->request->getParams()[0].'Action';
+			$params = $this->request->getParams();
+			unset($params[0]);
+			if(method_exists($this, $action)){
 			// call_user_func_array([$this,$action], [implode(",", $params)]);	
-			call_user_func_array([$this,$action], $params);	
+				call_user_func_array([$this,$action], $params);	
 
+			}
 		}
 
 
@@ -76,6 +80,11 @@ class Controller
 		return $paramsSecure;
 	}
 
-
+	public function allow($tabRole = []){
+		$role = (!empty(Session::getAuth()->RolesName))?Session::getAuth()->RolesName:null;
+		if(in_array($role, $tabRole) != true){
+			return $this->redirect('http://'.$this->request->getNameServer().'/error/restrict');
+		}
+	}
 
 }

@@ -5,7 +5,6 @@
 class HomeController extends Controller
 {
 
-	protected $entityUser; 
 
 	function __construct(){
 
@@ -16,6 +15,15 @@ class HomeController extends Controller
 	
 	public function view(){
 		parent::view();
+		if(!empty(Session::getAuth())){
+			if (Session::getAuth()->RolesName == "ROLE_ADMIN") {
+				return $this->render("/admin/home/home.php");
+
+			}else{
+				return $this->render("/user/home/home.php");
+			}
+
+		}
 		return $this->render("/public/home.php");
 
 	}

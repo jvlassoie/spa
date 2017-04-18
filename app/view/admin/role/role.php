@@ -16,7 +16,7 @@
 				<td><?= $value->name ?></td>
 				<td>
 					<a href="/role/update/<?= $value->id ?>" class='btn btn-primary'>Edit</a> 
-					<a href="/role/view/delete/<?= $value->id ?>" class='btn btn-danger' onclick='return confirmDelete()'>Delete</a>
+					<a href="/role/delete/<?= $value->id ?>" class='btn btn-danger' onclick='return confirmDelete()'>Delete</a>
 				</td>
 			</tr>
 		<?php

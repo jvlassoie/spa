@@ -3,16 +3,27 @@
 		<legend>Modifier</legend>
 
 		<div class="form-group">
-			<label for="name" class="col-lg-2 control-label">Nom</label>
+			<label for="username" class="col-lg-2 control-label">User Name</label>
 			<div class="col-lg-10">
-				<input type="text" name="name" id="name" class="form-control" value="<?= $donnees[0]->UsersName ?>" require/>
+				<input type="text" name="username" id="username" class="form-control" value="<?= $donnees[0]->UsersUsername ?>" require/>
 			</div>
 		</div>
-
+		<div class="form-group">
+			<label for="firstname" class="col-lg-2 control-label">First Name</label>
+			<div class="col-lg-10">
+				<input type="text" name="firstname" id="firstname" class="form-control" value="<?= $donnees[0]->UsersFirstname ?>" require/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="lastname" class="col-lg-2 control-label">Last Name</label>
+			<div class="col-lg-10">
+				<input type="text" name="lastname" id="lastname" class="form-control" value="<?= $donnees[0]->UsersLastname ?>" require/>
+			</div>
+		</div>
 		<div class="form-group">
 			<label for="password" class="col-lg-2 control-label">Password</label>
 			<div class="col-lg-10">
-				<input type="text" name="password" id="password" class="form-control" value="<?= $donnees[0]->UsersPassword ?>" require/>
+				<input type="password" name="password" id="password" class="form-control" value="<?= $donnees[0]->UsersPassword ?>" require/>
 			</div>
 		</div>
 

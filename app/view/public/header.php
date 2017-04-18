@@ -12,10 +12,10 @@
   ?>
 
   <link href="/css/app.css" rel="stylesheet">
-  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
   <link href="/js/jquery-ui/jquery-ui.css" rel="stylesheet">
   <script type="text/javascript" src="/js/jquery.min.js"></script>
-  <script type="text/javascript" src="/js/jquery-ui/jquery-ui.js"></script>
+  <script type="text/javascript" src="/js/jquery-ui/jquery-ui.min.js"></script>
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
   <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 </head>
@@ -30,18 +30,23 @@
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav pull-right">
 
+          <?php if(!empty(Session::getAuth())): ?>
+            <li><a href="/auth/logout">se déconnecter</a></li>
+          <?php endif; ?>
 
-          <li><a href="/auth/logout">se déconnecter</a></li>
 
-
-          <li><a href="/auth/register">Inscription</a></li>
-          <li><a href="/auth/login">Connection</a></li>
+          <?php if(empty(Session::getAuth())): ?>
+            <li><a href="/auth/register">Inscription</a></li>
+            <li><a href="/auth/login">Connection</a></li>
+          <?php endif; ?>
         </ul>
       </div>
     </div>
   </nav>
 
   <div class="container">
+
     <?php
     include_once("bread.php");
+    Session::getFlashAlert();
     ?>

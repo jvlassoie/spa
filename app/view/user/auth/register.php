@@ -2,24 +2,38 @@
 	<fieldset>
 		<legend>Inscription</legend>
 
+		<div class="form-group" id="msgPass">
+			
+		</div>
 		<div class="form-group">
-			<label for="name" class="col-lg-2 control-label">Nom</label>
+			<label for="username" class="col-lg-2 control-label">User Name</label>
 			<div class="col-lg-10">
-				<input type="text" name="name" id="name" class="form-control" require/>
+				<input type="text" name="username" id="username" class="form-control" require/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="firstname" class="col-lg-2 control-label">First Name</label>
+			<div class="col-lg-10">
+				<input type="text" name="firstname" id="firstname" class="form-control" require/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="lastname" class="col-lg-2 control-label">Last Name</label>
+			<div class="col-lg-10">
+				<input type="text" name="lastname" id="lastname" class="form-control" require/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="enterPassword" class="col-lg-2 control-label">Password</label>
+			<div class="col-lg-10">
+				<input type="password" name="password" id="enterPassword" class="form-control" require/>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label for="password" class="col-lg-2 control-label">Password</label>
+			<label for="verifPassword" class="col-lg-2 control-label">Verification Password</label>
 			<div class="col-lg-10">
-				<input type="text" name="password" id="password" class="form-control" require/>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="verifPassword" class="col-lg-2 control-label">Password</label>
-			<div class="col-lg-10">
-				<input type="text" name="verifPassword" id="verifPassword" class="form-control" require/>
+				<input type="password" name="verifPassword" id="verifPassword" class="form-control" require/>
 			</div>
 		</div>
 
@@ -29,10 +43,10 @@
 				<input type="email" name="email" id="email" class="form-control" require/>
 			</div>
 		</div>
-	
 
-	<div class="col-lg-10 col-lg-offset-2">
-		<button type="submit" class="btn btn-primary">Inscription</button>
-	</div>
-</fieldset>
+
+		<div class="col-lg-10 col-lg-offset-2">
+			<button type="submit" class="btn btn-primary">Inscription</button>
+		</div>
+	</fieldset>
 </form>

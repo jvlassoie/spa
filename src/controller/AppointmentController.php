@@ -23,15 +23,23 @@ class AppointmentController extends Controller
 	}
 
 	
-	public function view($page = 1){
+	public function view($page = 1){		
+		$this->allow(['ROLE_ADMIN','ROLE_USER']);
+		$userID = Session::getAuth()->UsersId;
 		parent::view();
-		$pagination = new Pagination($this->entityAppAni->counter()->Counter,4,$page);
-
-		return $this->render("/admin/appointment/appointment.php", ['a' => $this->entityAppAni->ReadApp($pagination),'pagination' => $pagination]);
+		if (Session::getAuth()->RolesName == 'ROLE_ADMIN') {
+			$pagination = new Pagination($this->entityAppAni->counter()->Counter,4,$page);
+			return $this->render("/admin/appointment/appointment.php", ['a' => $this->entityAppAni->ReadApp($pagination),'pagination' => $pagination]);
+			
+		}else{
+			$pagination = new Pagination($this->entityAppAni->countMyApp($userID)->nbCount,4,$page);
+			return $this->render("/user/appointment/appointment.php", ['a' => $this->entityAppAni->ReadApp($pagination,$userID),'pagination' => $pagination]);
+		}
 
 	}
 
-	protected function deleteAction($idApp,$idAni){
+	public function delete($idApp,$idAni){
+		$this->allow(['ROLE_ADMIN']);
 		if (!empty($idApp) && !empty($idAni)) {
 			//effacer dans la table de relation 
 			//compter combien id pareil 
@@ -42,30 +50,57 @@ class AppointmentController extends Controller
 			if ($count == 0) {
 				$this->entityAppointment->Delete($idApp);
 			}
-			
+
+			$this->redirect('http://'.$this->request->getNameServer().'/appointment/view/');
+			return true;
 		}
-		return true;
+		return false;
 	}
-	
+
 
 	public function create(){
+		$this->allow(['ROLE_ADMIN','ROLE_USER']);
 		$params = $_POST;
-		if (!empty($params)) {
-			$listAnimals = $params['listAnimals'];
-			$params['dateOfApp'] = (!empty($params['dateOfApp']))? date("Y-m-d", strtotime($params['dateOfApp'])):null;
-			unset($params['idSpecie'],$params['idBreed'],$params['listAnimals']);
-			$params = $this->secureForm($params);
-			$this->entityAppointment->Create($params);
-			$lstID = $this->entityAppointment->lastId();
-			foreach ($listAnimals as $key => $value) {
-				$this->entityAppAni->CreateAppAnimals($lstID,$value);
+		if (Session::getAuth()->RolesName == 'ROLE_ADMIN'){
+			if (!empty($params)) {
+				$listAnimals = $params['listAnimals'];
+				$params['dateOfApp'] = (!empty($params['dateOfApp']))? date("Y-m-d", strtotime($params['dateOfApp'])):null;
+				unset($params['idSpecie'],$params['idBreed'],$params['listAnimals']);
+				$params = $this->secureForm($params);
+				$this->entityAppointment->Create($params);
+				$lstID = $this->entityAppointment->lastId();
+				foreach ($listAnimals as $key => $value) {
+					$this->entityAppAni->CreateAppAnimals($lstID,$value);
+				}
+				$this->redirect('http://'.$this->request->getNameServer().'/appointment/view/');
 			}
-			$this->redirect('http://'.$this->request->getNameServer().'/appointment/view/');
+			return $this->render("/admin/appointment/createAppointment.php", ['user' => $this->entityUser->Read(), 'race' => $this->entitySpecie->Read()]);
+
+		}else{
+			if (!empty($params)) {
+				$listAnimals = $params['listAnimals'];
+				$params['dateOfApp'] = (!empty($params['dateOfApp']))? date("Y-m-d", strtotime($params['dateOfApp'])):null;
+				unset($params['idSpecie'],$params['idBreed'],$params['listAnimals']);
+				$params['status'] = 0;
+				$params['idUser'] = Session::getAuth()->UsersId;
+				$params = $this->secureForm($params);
+				$this->entityAppointment->Create($params);
+				$lstID = $this->entityAppointment->lastId();
+				foreach ($listAnimals as $key => $value) {
+					$this->entityAppAni->CreateAppAnimals($lstID,$value);
+				}
+				$this->redirect('http://'.$this->request->getNameServer().'/appointment/view/');
+			}
+			return $this->render("/user/appointment/createAppointment.php", ['user' => $this->entityUser->Read(), 'race' => $this->entitySpecie->Read()]);
+
 		}
-		return $this->render("/admin/appointment/createAppointment.php", ['user' => $this->entityUser->Read(), 'race' => $this->entitySpecie->Read()]);
 
 	}
+
+
+
 	public function update($id){
+		$this->allow(['ROLE_ADMIN']);
 		$params = $_POST;
 		if (!empty($params)) {
 			$listAnimals = $params['listAnimals'];

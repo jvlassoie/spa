@@ -5,9 +5,7 @@
 			<th>Date</th>
 			<th>Heure</th>
 			<th>Confirmation</th>
-			<th>User</th>
 			<th>Animal</th>
-			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -21,13 +19,8 @@
 				<td><?= $value->AppointmentsDateOfApp ?></td>
 				<td><?= $value->AppointmentsTimeOfApp ?></td>
 				<td><?= ($value->AppointmentsStatus == 1)? "Confirmé" : "Non Confirmé" ; ?></td>
-				<td><?= $value->UsersUsername ?></td>
 				<td><?= $value->AnimalsName ?></td>
 				
-				<td>
-					<a href="/appointment/update/<?= $value->AppointmentsId ?>" class='btn btn-primary'>Edit</a> 
-					<a href="/appointment/delete/<?= $value->AppointmentsId ?>/<?= $value->AnimalsId?>" class='btn btn-danger' onclick='return confirmDelete()'>Delete</a>
-				</td>
 			</tr>
 			<?php
 		}

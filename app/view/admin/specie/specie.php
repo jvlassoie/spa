@@ -16,7 +16,7 @@
 				<td><?= $value->name ?></td>
 				<td>
 					<a href="/specie/update/<?= $value->id ?>" class='btn btn-primary'>Edit</a> 
-					<a href="/specie/view/delete/<?= $value->id ?>" class='btn btn-danger' onclick='return confirmDelete()'>Delete</a>
+					<a href="/specie/delete/<?= $value->id ?>" class='btn btn-danger' onclick='return confirmDelete()'>Delete</a>
 				</td>
 			</tr>
 		<?php

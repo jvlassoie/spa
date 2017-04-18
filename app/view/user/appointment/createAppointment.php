@@ -16,30 +16,6 @@
 		</div>
 
 		<div class="form-group">
-			<label for="status" class="col-lg-2 control-label">Confirmation</label>
-			<div class="col-lg-10">
-				<select name="status" class="form-control" id="status">
-					<option value="1">Confirmé</option>
-					<option value="0">Non Confirmé</option>
-				</select>
-				<br>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="idUser" class="col-lg-2 control-label">User</label>
-			<div class="col-lg-10">
-				<select name="idUser" class="form-control" id="idUser">
-					<option value="" >--Choisissez un User</option>
-					<?php foreach ($user as $key => $value): ?>
-						<option value="<?= $value->UsersId ?>"><?= $value->UsersUsername ?></option>
-					<?php endforeach ?>
-				</select>
-				<br>
-			</div>
-		</div>
-
-		<div class="form-group">
 			<label for="idRace" class="col-lg-2 control-label">Choisir votre/vos animeaux à voir</label>
 			<div class="col-lg-5">
 				<select name="idSpecie" class="form-control" id="esp">

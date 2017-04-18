@@ -20,6 +20,7 @@ class BreedController extends Controller
 
 	
 	public function view($page = 1){
+		$this->allow(['ROLE_ADMIN']);
 		parent::view();
 		$pagination = new Pagination($this->entityBreed->counter()->Counter,4,$page);
 
@@ -27,32 +28,37 @@ class BreedController extends Controller
 
 	}
 
-	protected function deleteAction($id){
+	public function delete($id){
+		$this->allow(['ROLE_ADMIN']);
 		if (!empty($id)) {
 			$this->entityBreed->Delete($id);
+			$this->redirect('http://'.$this->request->getNameServer().'/breed/view/');
+			return true;
 		}
-		return true;
+		return false;
 	}
 	
 
 	public function create(){
+		$this->allow(['ROLE_ADMIN']);
 		$params = $_POST;
 		if (!empty($params)) {
 			$params = $this->secureForm($params);
 			$this->entityBreed->Create($params);
 			$this->redirect('http://'.$this->request->getNameServer().'/breed/view/');
 		}
-		return $this->render("/admin/breed/createBreed.php", ['listeSpecies' => $this->entitySpecie->Read($id)]);
+		return $this->render("/admin/breed/createBreed.php", ['listeSpecies' => $this->entitySpecie->Read()]);
 
 	}
 	public function update($id){
+		$this->allow(['ROLE_ADMIN']);
 		$params = $_POST;
 		if (!empty($params)) {
 			$params = $this->secureForm($params);
 			$this->entityBreed->Update($id,$params);
 			$this->redirect('http://'.$this->request->getNameServer().'/breed/view/');
 		}	
-		return $this->render("/admin/breed/updateBreed.php", ['donnees' => $this->entityBreed->FindById($id), 'listeSpecies' => $this->entitySpecie->Read($id)]);
+		return $this->render("/admin/breed/updateBreed.php", ['donnees' => $this->entityBreed->FindById($id), 'listeSpecies' => $this->entitySpecie->Read()]);
 
 	}
 

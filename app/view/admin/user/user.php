@@ -2,7 +2,9 @@
 	<thead>
 		<tr>
 			<th>ID</th>
-			<th>Name</th>
+			<th>User Name</th>
+			<th>First Name</th>
+			<th>Last Name</th>
 			<th>Password</th>
 			<th>Email</th>
 			<th>Rôle</th>
@@ -18,13 +20,15 @@
 			?>
 			<tr>
 				<td><?= $value->UsersId ?></td>
-				<td><?= $value->UsersName ?></td>
+				<td><?= $value->UsersUsername ?></td>
+				<td><?= $value->UsersFirstname ?></td>
+				<td><?= $value->UsersLastname ?></td>
 				<td><?= $value->UsersPassword ?></td>
 				<td><?= $value->UsersEmail ?></td>
 				<td><?= $value->RolesName ?></td>
 				<td>
 					<a href="/user/update/<?= $value->UsersId ?>" class='btn btn-primary'>Edit</a> 
-					<a href="/user/view/delete/<?= $value->UsersId ?>" class='btn btn-danger' onclick='return confirmDelete()'>Delete</a>
+					<a href="/user/delete/<?= $value->UsersId ?>" class='btn btn-danger' onclick='return confirmDelete()'>Delete</a>
 				</td>
 			</tr>
 			<?php

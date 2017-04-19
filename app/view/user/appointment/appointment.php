@@ -9,6 +9,7 @@
 		</tr>
 	</thead>
 	<tbody>
+	<legend>My appointment(s)</legend>
 		<?php
 		include_once('../app/view/public/shorting.php');
 		?>

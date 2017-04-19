@@ -16,5 +16,10 @@ class AnimalManager extends EntityManager
 		return $req->fetchAll();
 	}
 
+	public function countByIdSpecie($id){
 
+		$req = $this->db->query("SELECT COUNT(*) as countAnimals FROM $this->entity 
+			inner join Breeds on $this->entity.idBreed = Breeds.id WHERE idSpecie = $id");
+		return $req->fetch();
+	}
 }

@@ -10,7 +10,9 @@
 	<div class="panel-body">
 		<ul class="nav nav-pills nav-stacked">
 			<li><a href="/animal/view/">Animals</a></li>
-			<li><a href="/appointment/view/">Make a appointment</a></li>	
+			<li><a href="/appointment/view/">Make a appointment</a></li>
+			<li><a href="/animalstat/view/">Statistique Animals</a></li>
+
 		</ul>
 	</div>
 </div>

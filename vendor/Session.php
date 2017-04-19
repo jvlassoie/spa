@@ -8,7 +8,8 @@ class Session
 	public static function start()
 	{
 		if(session_status() == PHP_SESSION_NONE){
-			session_cache_limiter('public');
+			// temps de session 30 minutes
+			session_cache_expire(30);
 			return session_start();
 		}else{
 			return false;
@@ -47,9 +48,8 @@ public static function getAuth(){
 	return false;
 }
 public static function destroyAuth(){
-	if (!empty($_SESSION['auth'])) {
-		unset($_SESSION['auth']);
-	}
+	unset($_SESSION['auth']);
+
 }
 
 

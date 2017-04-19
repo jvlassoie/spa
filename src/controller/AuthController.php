@@ -53,10 +53,10 @@ class AuthController extends Controller
 				if (password_verify($password,$user->UsersPassword)) {
 					Session::setAuth($user);
 					Session::setFlash("success","Vous êtes Connecté");
-					return $this->redirect('http://'.$this->request->getNameServer().'/home/view');
+					return $this->redirect('http://'.$this->request->getNameServer().'/home/view/');
 				}else{
 					Session::setFlash("danger","Impossible de se connecter à se compte");
-					return $this->redirect('http://'.$this->request->getNameServer().'/auth/login');
+					return $this->redirect('http://'.$this->request->getNameServer().'/auth/login/');
 				}
 			}else{
 				Session::setFlash("danger","Ce compte est inconnue");
@@ -70,7 +70,7 @@ class AuthController extends Controller
 	public function logout(){
 		Session::destroyAuth();
 		Session::setFlash("success","Vous êtes Déconnecté");
-		$this->redirect('http://'.$this->request->getNameServer().'/home/view');
+		return $this->redirect('http://'.$this->request->getNameServer().'/');
 
 	}
 	

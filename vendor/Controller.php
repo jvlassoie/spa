@@ -21,7 +21,7 @@ class Controller
 		extract($tab);
 		require "../app/view/public/header.php";
 		require "../app/view/$template";
-		require "../app/view/public/footer.php";
+		include "../app/view/public/footer.php";
 		echo ob_get_clean();
 		return true;
 	}
@@ -43,17 +43,17 @@ class Controller
 		return true;
 	}
 	
-	public static function redirectStatic($url, $statusCode = 303)
+	public static function redirectStatic($url, $statusCode = 301)
 	{
 		header('Location: ' . $url, true, $statusCode);
-		exit;
+		die;
 	}
 
-	public function redirect($url, $statusCode = 303)
+	public function redirect($url, $statusCode = 301)
 	{
 
 		header('Location: ' . $url, true, $statusCode);
-		exit;
+		die;
 	}
 
 	public function view(){
@@ -63,7 +63,6 @@ class Controller
 			$params = $this->request->getParams();
 			unset($params[0]);
 			if(method_exists($this, $action)){
-			// call_user_func_array([$this,$action], [implode(",", $params)]);	
 				call_user_func_array([$this,$action], $params);	
 
 			}

@@ -9,6 +9,9 @@
 		</tr>
 	</thead>
 	<tbody>
+		<?php
+		include_once('../app/view/public/shorting.php');
+		?>
 		<a href='/appointment/create/' class='btn btn-success btn-lg pull-right'>create</a> 
 		<br/>
 		<?php

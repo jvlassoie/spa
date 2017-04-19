@@ -139,7 +139,7 @@ class EntityManager
 	* Fonction qui sert a lire les enregistrements et trouve automatiquement les FKs 
 	* @return un tableau des enregistrements;
 	*/
-	public function Read(Pagination $pagination = null){
+	public function Read(Pagination $pagination = null, $order = 'DESC'){
 		if ($pagination != null) {
 
 			if (!empty($this->fk)) {
@@ -164,11 +164,11 @@ class EntityManager
 					}while(!empty($columnFK));
 
 					$entityIndiceStr = rtrim($entityIndiceStr,', ');
-					$req = $this->db->prepare('SELECT '.$entityIndiceStr.' FROM '.$this->entity.' '.$addJoinStr.' '.$pagination->getLimit());
+					$req = $this->db->prepare('SELECT '.$entityIndiceStr.' FROM '.$this->entity.' '.$addJoinStr.' ORDER BY '. $this->entity.'.id '.$order.' '.$pagination->getLimit());
 					$end = false;
 				}
 			}else{	
-				$req = $this->db->prepare('SELECT * FROM '.$this->entity.' '.$pagination->getLimit());
+				$req = $this->db->prepare('SELECT * FROM '.$this->entity.' ORDER BY '.$this->entity.'.id '.$order.' '.$pagination->getLimit());
 			}
 			$req->execute();
 			return $req->fetchAll();
@@ -197,11 +197,12 @@ class EntityManager
 					}while(!empty($columnFK));
 
 					$entityIndiceStr = rtrim($entityIndiceStr,', ');
-					$req = $this->db->prepare("SELECT $entityIndiceStr FROM $this->entity $addJoinStr");
+					$req = $this->db->prepare("SELECT $entityIndiceStr FROM $this->entity $addJoinStr ORDER BY $this->entity.id $order");
 					$end = false;
 				}
 			}else{	
-				$req = $this->db->prepare("SELECT * FROM $this->entity");
+				
+				$req = $this->db->prepare("SELECT * FROM $this->entity ORDER BY $this->entity.id $order");
 			}
 			$req->execute();
 			return $req->fetchAll();

@@ -19,14 +19,14 @@ class AnimalController extends Controller
 	}
 
 	
-	public function view($page = 1){
+	public function view($order = "DESC",$page = 1){
 		parent::view();
-		$pagination = new Pagination($this->entityAnimal->counter()->Counter,4,$page);
+		$pagination = new Pagination($this->entityAnimal->counter()->Counter,2,$page);
 		$role = (!empty(Session::getAuth()->RolesName))?Session::getAuth()->RolesName:null;
 		if ($role == 'ROLE_ADMIN') {
-			return $this->render("/admin/animal/animal.php", ['a' => $this->entityAnimal->Read($pagination),'pagination' => $pagination]);
+			return $this->render("/admin/animal/animal.php", ['a' => $this->entityAnimal->Read($pagination,$order),'pagination' => $pagination]);
 		}else{
-			return $this->render("/user/animal/animal.php", ['a' => $this->entityAnimal->Read($pagination),'pagination' => $pagination]);
+			return $this->render("/user/animal/animal.php", ['a' => $this->entityAnimal->Read($pagination,$order),'pagination' => $pagination]);
 
 		}
 

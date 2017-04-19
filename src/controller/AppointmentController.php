@@ -23,17 +23,17 @@ class AppointmentController extends Controller
 	}
 
 	
-	public function view($page = 1){		
+	public function view($order = "DESC",$page = 1){
 		$this->allow(['ROLE_ADMIN','ROLE_USER']);
 		$userID = Session::getAuth()->UsersId;
 		parent::view();
 		if (Session::getAuth()->RolesName == 'ROLE_ADMIN') {
 			$pagination = new Pagination($this->entityAppAni->counter()->Counter,4,$page);
-			return $this->render("/admin/appointment/appointment.php", ['a' => $this->entityAppAni->ReadApp($pagination),'pagination' => $pagination]);
+			return $this->render("/admin/appointment/appointment.php", ['a' => $this->entityAppAni->ReadApp($pagination,$order),'pagination' => $pagination]);
 			
 		}else{
 			$pagination = new Pagination($this->entityAppAni->countMyApp($userID)->nbCount,4,$page);
-			return $this->render("/user/appointment/appointment.php", ['a' => $this->entityAppAni->ReadApp($pagination,$userID),'pagination' => $pagination]);
+			return $this->render("/user/appointment/appointment.php", ['a' => $this->entityAppAni->ReadApp($pagination,$order,$userID),'pagination' => $pagination]);
 		}
 
 	}

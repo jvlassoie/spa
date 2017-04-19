@@ -14,7 +14,7 @@ class AppointmentManager extends EntityManager
 		$req = $this->db->prepare("INSERT INTO $this->entity (idAppointments,idAnimals) VALUES (?,?)");
 		$req->execute([$idApp,$idAnimal]);
 	}
-	public function ReadApp(Pagination $pagination = null, $userID = null){
+	public function ReadApp(Pagination $pagination = null, $order = 'DESC' ,$userID = null){
 		$entityIndiceStr = null;
 		if ($pagination != null) {
 
@@ -35,15 +35,14 @@ class AppointmentManager extends EntityManager
 				$req = $this->db->prepare('SELECT '.$entityIndiceStr.' FROM '.$this->entity.' 
 					inner join Appointments on Appointments_Animals.idAppointments = Appointments.id
 					inner join Animals on Appointments_Animals.idAnimals = Animals.id
-					inner join Users on idUser = Users.id WHERE Users.id = ? '.$pagination->getLimit()
+					inner join Users on idUser = Users.id WHERE Users.id = ? ORDER BY Appointments_Animals.idAppointments '.$order.' '.$pagination->getLimit()
 					);
 				$req->execute([$userID]);
 			}else{
-
 				$req = $this->db->prepare('SELECT '.$entityIndiceStr.' FROM '.$this->entity.' 
 					inner join Appointments on Appointments_Animals.idAppointments = Appointments.id
 					inner join Animals on Appointments_Animals.idAnimals = Animals.id
-					inner join Users on idUser = Users.id '.$pagination->getLimit()
+					inner join Users on idUser = Users.id ORDER BY Appointments_Animals.idAppointments '.$order.' '.$pagination->getLimit()
 					);
 				$req->execute();
 			}
@@ -69,6 +68,7 @@ class AppointmentManager extends EntityManager
 					inner join Appointments on Appointments_Animals.idAppointments = Appointments.id
 					inner join Animals on Appointments_Animals.idAnimals = Animals.id
 					inner join Users on idUser = Users.id WHERE Users.id = ?
+					ORDER BY Appointments_Animals.idAppointments $order
 					");
 				$req->execute([$userID]);
 			}else{
@@ -76,6 +76,7 @@ class AppointmentManager extends EntityManager
 					inner join Appointments on Appointments_Animals.idAppointments = Appointments.id
 					inner join Animals on Appointments_Animals.idAnimals = Animals.id
 					inner join Users on idUser = Users.id
+					ORDER BY Appointments_Animals.idAppointments $order
 					");
 				$req->execute();
 

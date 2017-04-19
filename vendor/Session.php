@@ -8,7 +8,7 @@ class Session
 	public static function start()
 	{
 		if(session_status() == PHP_SESSION_NONE){
-			// session_cache_limiter('private_no_expire');
+			session_cache_limiter('public');
 			return session_start();
 		}else{
 			return false;
@@ -44,7 +44,7 @@ public static function getAuth(){
 
 		return $_SESSION['auth'];		
 	}
-		return false;
+	return false;
 }
 public static function destroyAuth(){
 	if (!empty($_SESSION['auth'])) {

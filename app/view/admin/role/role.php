@@ -6,12 +6,16 @@
 		</tr>
 	</thead>
 	<tbody>
+		<?php
+		include_once('../app/view/public/shorting.php');
+		?>
+		
 		<a href='/role/create/' class='btn btn-success btn-lg pull-right'>create</a> 
 		<br/>
 
 		<?php
 		foreach ($a as $key => $value) {
-		?>
+			?>
 			<tr>
 				<td><?= $value->name ?></td>
 				<td>
@@ -19,8 +23,8 @@
 					<a href="/role/delete/<?= $value->id ?>" class='btn btn-danger' onclick='return confirmDelete()'>Delete</a>
 				</td>
 			</tr>
-		<?php
-			}
+			<?php
+		}
 
 		?>
 	</tbody>

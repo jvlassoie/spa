@@ -35,7 +35,7 @@ class AuthController extends Controller
 
 				$this->entityUser->Create($params);
 				Session::setFlash("success","Youpi vous êtes inscrit :)");
-				return $this->redirect('http://'.$this->request->getNameServer().'/');
+				return $this->redirect('http://'.$this->request->getNameServer().'/home/view');
 			}	
 			
 		}
@@ -53,7 +53,7 @@ class AuthController extends Controller
 				if (password_verify($password,$user->UsersPassword)) {
 					Session::setAuth($user);
 					Session::setFlash("success","Vous êtes Connecté");
-					return $this->redirect('http://'.$this->request->getNameServer().'/');
+					return $this->redirect('http://'.$this->request->getNameServer().'/home/view');
 				}else{
 					Session::setFlash("danger","Impossible de se connecter à se compte");
 					return $this->redirect('http://'.$this->request->getNameServer().'/auth/login');
@@ -70,7 +70,7 @@ class AuthController extends Controller
 	public function logout(){
 		Session::destroyAuth();
 		Session::setFlash("success","Vous êtes Déconnecté");
-		$this->redirect('http://'.$this->request->getNameServer());
+		$this->redirect('http://'.$this->request->getNameServer().'/home/view');
 
 	}
 	

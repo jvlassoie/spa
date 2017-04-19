@@ -19,12 +19,12 @@ class BreedController extends Controller
 	}
 
 	
-	public function view($page = 1){
+	public function view($order = "DESC",$page = 1){
 		$this->allow(['ROLE_ADMIN']);
 		parent::view();
 		$pagination = new Pagination($this->entityBreed->counter()->Counter,4,$page);
 
-		return $this->render("/admin/breed/breed.php", ['a' => $this->entityBreed->Read($pagination),'pagination' => $pagination]);
+		return $this->render("/admin/breed/breed.php", ['a' => $this->entityBreed->Read($pagination,$order),'pagination' => $pagination]);
 
 	}
 

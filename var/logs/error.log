@@ -16,3 +16,18 @@
 [2017-04-17 17:07:37]	SQLSTATE[42S22]: Column not found: 1054 Unknown column 'name' in 'field list'
 [2017-04-17 17:39:29]	SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1
 [2017-04-17 21:34:51]	SQLSTATE[42S02]: Base table or view not found: 1146 Table 'spa.Role' doesn't exist
+[2017-04-18 21:30:58]	SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Speciesid' in 'order clause'
+[2017-04-18 21:31:01]	SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Rolesid' in 'order clause'
+[2017-04-18 21:31:35]	SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Rolesid' in 'order clause'
+[2017-04-19 12:37:11]	SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1 LIMIT 0,4' at line 1
+[2017-04-19 12:37:26]	SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-4,4' at line 1
+[2017-04-19 12:38:40]	SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '2 LIMIT 0,2' at line 1
+[2017-04-19 13:27:27]	SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '2 LIMIT 0,2' at line 1
+[2017-04-19 13:29:02]	SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ASC2 LIMIT 0,2' at line 1
+[2017-04-19 14:52:41]	SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-4,4' at line 4
+[2017-04-19 15:08:08]	SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '()' at line 1
+[2017-04-19 15:08:55]	SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '()' at line 1
+[2017-04-19 15:25:19]	SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '()' at line 1
+[2017-04-19 15:25:43]	SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '()' at line 1
+[2017-04-19 15:25:51]	SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '()' at line 1
+[2017-04-19 15:26:01]	SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '()' at line 1

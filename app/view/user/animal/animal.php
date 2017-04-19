@@ -11,6 +11,9 @@
 		</tr>
 	</thead>
 	<tbody>
+		<?php
+		include_once('../app/view/public/shorting.php');
+		?>
 
 		<?php
 

@@ -7,12 +7,15 @@
 		</tr>
 	</thead>
 	<tbody>
+		<?php
+		include_once('../app/view/public/shorting.php');
+		?>
 		<a href='/breed/create/' class='btn btn-success btn-lg pull-right'>create</a> 
 		<br/>
 
 		<?php
 		foreach ($a as $key => $value) {
-		?>
+			?>
 			<tr>
 				<td><?= $value->BreedsName ?></td>
 				<td><?= $value->SpeciesName ?></td>
@@ -21,8 +24,8 @@
 					<a href="/breed/delete/<?= $value->BreedsId ?>" class='btn btn-danger' onclick='return confirmDelete()'>Delete</a>
 				</td>
 			</tr>
-		<?php
-			}
+			<?php
+		}
 
 		?>
 	</tbody>

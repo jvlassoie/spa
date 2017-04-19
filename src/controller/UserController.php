@@ -16,12 +16,12 @@ class UserController extends Controller
 	}
 
 	
-	public function view($page = 1){
+	public function view($order = "DESC",$page = 1){
 		$this->allow(['ROLE_ADMIN']);
 		parent::view();
 		$pagination = new Pagination($this->entityUser->counter()->Counter,4,$page);
 
-		return $this->render("/admin/user/user.php", ['a' => $this->entityUser->Read($pagination),'pagination' => $pagination]);
+		return $this->render("/admin/user/user.php", ['a' => $this->entityUser->Read($pagination,$order),'pagination' => $pagination]);
 
 	}
 
@@ -56,7 +56,7 @@ class UserController extends Controller
 
 				$this->entityUser->Create($params);
 				Session::setFlash("success","Youpi un nouvel inscrit :)");
-				return $this->redirect('http://'.$this->request->getNameServer().'/');
+				return $this->redirect('http://'.$this->request->getNameServer().'/home/view');
 			}	
 			
 		}

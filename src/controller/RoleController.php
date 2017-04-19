@@ -15,12 +15,12 @@ class RoleController extends Controller
 	}
 
 	
-	public function view($page = 1){
+	public function view($order = "DESC",$page = 1){
 		$this->allow(['ROLE_ADMIN']);
 		parent::view();
 		$pagination = new Pagination($this->entityRole->counter()->Counter,4,$page);
 
-		return $this->render("/admin/role/role.php", ['a' => $this->entityRole->Read($pagination),'pagination' => $pagination]);
+		return $this->render("/admin/role/role.php", ['a' => $this->entityRole->Read($pagination,$order),'pagination' => $pagination]);
 
 	}
 

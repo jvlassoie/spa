@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Jeu 20 Avril 2017 à 08:15
+-- Généré le :  Jeu 20 Avril 2017 à 11:31
 -- Version du serveur :  5.7.17-0ubuntu0.16.04.1
 -- Version de PHP :  7.0.15-0ubuntu0.16.04.4
 
@@ -44,7 +44,8 @@ INSERT INTO `Animals` (`id`, `name`, `status`, `dateArrived`, `description`, `ag
 (2, 'bill', 1, '2017-03-27', 'poils blanc', NULL, 1),
 (3, 'mysti', 1, '2017-03-27', 'Court, fin, bien couché sur le corps et satiné', NULL, 2),
 (4, 'blabla', 1, '2017-04-08', 'moustachue', 10, 1),
-(5, 'felix', 1, '2017-04-14', 'chouette', 5, 2);
+(5, 'felix', 1, '2017-04-14', 'chouette', 5, 2),
+(6, 'monster', 1, '2017-04-22', 'dangereux', 5, 4);
 
 --
 -- Déclencheurs `Animals`
@@ -52,7 +53,13 @@ INSERT INTO `Animals` (`id`, `name`, `status`, `dateArrived`, `description`, `ag
 DELIMITER $$
 CREATE TRIGGER `Animals_ai` AFTER INSERT ON `Animals` FOR EACH ROW BEGIN
 
-INSERT INTO Historic_Animals (id,name,dateArrived,description,age,idBreed) VALUES (NEW.id,NEW.name,NEW.dateArrived,NEW.description,NEW.age,NEW.idBreed);
+DECLARE VarBreed VARCHAR(255);
+DECLARE VarSpecie VARCHAR(255);
+
+SET VarBreed = (SELECT name FROM Breeds WHERE NEW.idBreed = Breeds.id);
+SET VarSpecie = (SELECT Species.name FROM Breeds inner join Species on Breeds.idSpecie = Species.id where NEW.idBreed = Breeds.id);
+
+INSERT INTO Historic_Animals (id,name,dateArrived,description,age,Breed,Specie) VALUES (NEW.id,NEW.name,NEW.dateArrived,NEW.description,NEW.age,VarBreed,VarSpecie);
 
 END
 $$
@@ -142,15 +149,16 @@ CREATE TABLE `Historic_Animals` (
   `dateArrived` date NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `age` int(11) DEFAULT NULL,
-  `idBreed` int(11) DEFAULT NULL
+  `Breed` varchar(255) DEFAULT NULL,
+  `Specie` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `Historic_Animals`
 --
 
-INSERT INTO `Historic_Animals` (`id`, `name`, `dateArrived`, `description`, `age`, `idBreed`) VALUES
-(5, 'felix', '2017-04-14', 'chouette', 5, 2);
+INSERT INTO `Historic_Animals` (`id`, `name`, `dateArrived`, `description`, `age`, `Breed`, `Specie`) VALUES
+(6, 'monster', '2017-04-22', 'dangereux', 5, 'husky', 'chien');
 
 -- --------------------------------------------------------
 
@@ -255,12 +263,6 @@ ALTER TABLE `Breeds`
   ADD KEY `fk_Breeds_Species1_idx` (`idSpecie`);
 
 --
--- Index pour la table `Historic_Animals`
---
-ALTER TABLE `Historic_Animals`
-  ADD KEY `idBreed` (`idBreed`);
-
---
 -- Index pour la table `Roles`
 --
 ALTER TABLE `Roles`
@@ -287,7 +289,7 @@ ALTER TABLE `Users`
 -- AUTO_INCREMENT pour la table `Animals`
 --
 ALTER TABLE `Animals`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pour la table `Appointments`
 --
@@ -341,12 +343,6 @@ ALTER TABLE `Appointments_Animals`
 --
 ALTER TABLE `Breeds`
   ADD CONSTRAINT `Breeds_ibfk_2` FOREIGN KEY (`idSpecie`) REFERENCES `Species` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Contraintes pour la table `Historic_Animals`
---
-ALTER TABLE `Historic_Animals`
-  ADD CONSTRAINT `Historic_Animals_ibfk_1` FOREIGN KEY (`idBreed`) REFERENCES `Breeds` (`id`);
 
 --
 -- Contraintes pour la table `Users`

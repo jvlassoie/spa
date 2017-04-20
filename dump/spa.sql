@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Jeu 20 Avril 2017 à 11:31
+-- Généré le :  Jeu 20 Avril 2017 à 13:21
 -- Version du serveur :  5.7.17-0ubuntu0.16.04.1
 -- Version de PHP :  7.0.15-0ubuntu0.16.04.4
 
@@ -342,7 +342,7 @@ ALTER TABLE `Appointments_Animals`
 -- Contraintes pour la table `Breeds`
 --
 ALTER TABLE `Breeds`
-  ADD CONSTRAINT `Breeds_ibfk_2` FOREIGN KEY (`idSpecie`) REFERENCES `Species` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `Breeds_ibfk_3` FOREIGN KEY (`idSpecie`) REFERENCES `Species` (`id`);
 
 --
 -- Contraintes pour la table `Users`

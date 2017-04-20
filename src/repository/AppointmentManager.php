@@ -39,6 +39,11 @@ class AppointmentManager extends EntityManager
 					);
 				$req->execute([$userID]);
 			}else{
+				Debug::debugP('SELECT '.$entityIndiceStr.' FROM '.$this->entity.' 
+					inner join Appointments on Appointments_Animals.idAppointments = Appointments.id
+					inner join Animals on Appointments_Animals.idAnimals = Animals.id
+					inner join Users on idUser = Users.id ORDER BY Appointments_Animals.idAppointments '.$order.' '.$pagination->getLimit());
+				die();
 				$req = $this->db->prepare('SELECT '.$entityIndiceStr.' FROM '.$this->entity.' 
 					inner join Appointments on Appointments_Animals.idAppointments = Appointments.id
 					inner join Animals on Appointments_Animals.idAnimals = Animals.id

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Jeu 20 Avril 2017 à 13:21
+-- Généré le :  Jeu 20 Avril 2017 à 13:45
 -- Version du serveur :  5.7.17-0ubuntu0.16.04.1
 -- Version de PHP :  7.0.15-0ubuntu0.16.04.4
 
@@ -163,6 +163,35 @@ INSERT INTO `Historic_Animals` (`id`, `name`, `dateArrived`, `description`, `age
 -- --------------------------------------------------------
 
 --
+-- Doublure de structure pour la vue `listAppAni`
+--
+CREATE TABLE `listAppAni` (
+`Appointments_AnimalsIdAppointments` int(11)
+,`Appointments_AnimalsIdAnimals` int(11)
+,`UsersId` int(11)
+,`UsersUsername` varchar(150)
+,`UsersLastname` varchar(150)
+,`UsersFirstname` varchar(150)
+,`UsersPassword` varchar(255)
+,`UsersEmail` varchar(255)
+,`UsersIdRole` int(11)
+,`AppointmentsId` int(11)
+,`AppointmentsDateOfApp` date
+,`AppointmentsTimeOfApp` time
+,`AppointmentsStatus` tinyint(1)
+,`AppointmentsIdUser` int(11)
+,`AnimalsId` int(11)
+,`AnimalsName` varchar(255)
+,`AnimalsStatus` tinyint(1)
+,`AnimalsDateArrived` date
+,`AnimalsDescription` varchar(255)
+,`AnimalsAge` int(11)
+,`AnimalsIdBreed` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `Roles`
 --
 
@@ -229,6 +258,15 @@ INSERT INTO `Users` (`id`, `username`, `lastname`, `firstname`, `password`, `ema
 (12, 'mio', 'mi', 'mi', '$2y$10$e8Q6aFzSWMwUp33WQzC2/.N7Yf78IEQbywjI8/ctHEKFz9LTdnxDi', 'mio@mi.fr', 2),
 (14, 'polo', 'polet', 'pleti', '$2y$10$hEcxk3QJF/su0O4s79nHOum9qZd/WF6WUxZryMs8fMAFbYZy3zmg.', 'pooo@p.fr', 2),
 (15, 'admin', 'admin', 'admin', '$2y$10$3eDT6GNHJL483NZTpNrAkOIMflosWZiTTHwsizkGlnpTzwI170XfS', 'admin@admin.com', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la vue `listAppAni`
+--
+DROP TABLE IF EXISTS `listAppAni`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `listAppAni`  AS  select `Appointments_Animals`.`idAppointments` AS `Appointments_AnimalsIdAppointments`,`Appointments_Animals`.`idAnimals` AS `Appointments_AnimalsIdAnimals`,`Users`.`id` AS `UsersId`,`Users`.`username` AS `UsersUsername`,`Users`.`lastname` AS `UsersLastname`,`Users`.`firstname` AS `UsersFirstname`,`Users`.`password` AS `UsersPassword`,`Users`.`email` AS `UsersEmail`,`Users`.`idRole` AS `UsersIdRole`,`Appointments`.`id` AS `AppointmentsId`,`Appointments`.`dateOfApp` AS `AppointmentsDateOfApp`,`Appointments`.`timeOfApp` AS `AppointmentsTimeOfApp`,`Appointments`.`status` AS `AppointmentsStatus`,`Appointments`.`idUser` AS `AppointmentsIdUser`,`Animals`.`id` AS `AnimalsId`,`Animals`.`name` AS `AnimalsName`,`Animals`.`status` AS `AnimalsStatus`,`Animals`.`dateArrived` AS `AnimalsDateArrived`,`Animals`.`description` AS `AnimalsDescription`,`Animals`.`age` AS `AnimalsAge`,`Animals`.`idBreed` AS `AnimalsIdBreed` from (((`Appointments_Animals` join `Appointments` on((`Appointments_Animals`.`idAppointments` = `Appointments`.`id`))) join `Animals` on((`Appointments_Animals`.`idAnimals` = `Animals`.`id`))) join `Users` on((`Appointments`.`idUser` = `Users`.`id`))) ;
 
 --
 -- Index pour les tables exportées

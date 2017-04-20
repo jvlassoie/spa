@@ -38,3 +38,5 @@
 [2017-04-19 23:57:00]	SQLSTATE[42S22]: Column not found: 1054 Unknown column 'idSpecie' in 'where clause'
 [2017-04-20 00:03:59]	SQLSTATE[42S22]: Column not found: 1054 Unknown column 'idSpecie' in 'where clause'
 [2017-04-20 00:06:54]	SQLSTATE[42S22]: Column not found: 1054 Unknown column 'SpeciesId' in 'where clause'
+[2017-04-20 08:16:46]	SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`spa`.`Users`, CONSTRAINT `Users_ibfk_1` FOREIGN KEY (`idRole`) REFERENCES `Roles` (`id`))
+[2017-04-20 08:17:36]	SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`spa`.`Breeds`, CONSTRAINT `Breeds_ibfk_2` FOREIGN KEY (`idSpecie`) REFERENCES `Species` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION)

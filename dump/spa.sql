@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mer 19 Avril 2017 à 16:02
+-- Généré le :  Jeu 20 Avril 2017 à 08:15
 -- Version du serveur :  5.7.17-0ubuntu0.16.04.1
 -- Version de PHP :  7.0.15-0ubuntu0.16.04.4
 
@@ -126,8 +126,9 @@ CREATE TABLE `Breeds` (
 
 INSERT INTO `Breeds` (`id`, `name`, `idSpecie`) VALUES
 (1, 'bichon', 2),
-(2, 'Bombay', 4),
-(3, 'michel', 2);
+(2, 'bombay', 4),
+(4, 'husky', 2),
+(5, 'tigr&eacute; europ&eacute;en', 4);
 
 -- --------------------------------------------------------
 
@@ -187,14 +188,7 @@ CREATE TABLE `Species` (
 
 INSERT INTO `Species` (`id`, `name`) VALUES
 (2, 'chien'),
-(4, 'chat'),
-(21, 'zzs'),
-(25, 'zzd'),
-(29, 'szsasa'),
-(30, 'mouus'),
-(35, 'sas'),
-(36, 'dza'),
-(37, 'boubou');
+(4, 'chat');
 
 -- --------------------------------------------------------
 
@@ -225,7 +219,8 @@ INSERT INTO `Users` (`id`, `username`, `lastname`, `firstname`, `password`, `ema
 (10, 'koli', 'ko', 'ko', '$2y$10$mlt9beDhzS67rbwXZvYFWOGAxY7H6HVemU9pDaJ55IWKx4kRUs8ea', 'koli@ko.com', 2),
 (11, 'mi', 'mi', 'mi', '$2y$10$qHm3wTUzP1KwQs4O4nPSM.14FugejjrJ7RiuPzKjDe5RQEuSkzwLy', 'mi@mi.fr', 2),
 (12, 'mio', 'mi', 'mi', '$2y$10$e8Q6aFzSWMwUp33WQzC2/.N7Yf78IEQbywjI8/ctHEKFz9LTdnxDi', 'mio@mi.fr', 2),
-(14, 'polo', 'polet', 'pleti', '$2y$10$hEcxk3QJF/su0O4s79nHOum9qZd/WF6WUxZryMs8fMAFbYZy3zmg.', 'pooo@p.fr', 2);
+(14, 'polo', 'polet', 'pleti', '$2y$10$hEcxk3QJF/su0O4s79nHOum9qZd/WF6WUxZryMs8fMAFbYZy3zmg.', 'pooo@p.fr', 2),
+(15, 'admin', 'admin', 'admin', '$2y$10$3eDT6GNHJL483NZTpNrAkOIMflosWZiTTHwsizkGlnpTzwI170XfS', 'admin@admin.com', 1);
 
 --
 -- Index pour les tables exportées
@@ -302,7 +297,7 @@ ALTER TABLE `Appointments`
 -- AUTO_INCREMENT pour la table `Breeds`
 --
 ALTER TABLE `Breeds`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pour la table `Roles`
 --
@@ -317,7 +312,7 @@ ALTER TABLE `Species`
 -- AUTO_INCREMENT pour la table `Users`
 --
 ALTER TABLE `Users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- Contraintes pour les tables exportées
 --

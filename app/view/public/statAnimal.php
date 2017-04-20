@@ -1,3 +1,4 @@
+<div id="HTMLtoPDF">
 <ul class="list-group">
 	<li class="list-group-item"><h4>Nombre d'Animaux : <?= $nbAnimal->Counter ?></h4></li>
 	<?php foreach ($nbAnimalBySpecie as $key => $value): ?>
@@ -23,3 +24,6 @@
 	<p class="lead pull-right"><?= $value*100/$nbAnimal->Counter ?>%</p>
 <?php endif; ?>
 <?php endforeach; ?>
+</div>
+
+<a href="#" class='btn btn-primary' onclick="HTMLtoPDF()">Download PDF</a>
